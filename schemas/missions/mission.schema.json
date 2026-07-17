@@ -19,7 +19,20 @@
     "execution_surfaces": {"type": "array", "minItems": 1, "items": {"enum": ["CHAT", "STUDY_MODE", "PROJECT", "DEEP_RESEARCH", "AGENT_MODE", "WORK", "CODEX", "GITHUB", "OPENAI_API", "SIMULATION"]}},
     "allowed_tools": {"type": "array", "items": {"type": "string"}},
     "forbidden_actions": {"type": "array", "items": {"type": "string"}},
-    "steps": {"type": "array", "minItems": 1, "items": {"type": "object", "required": ["id", "title", "instructions"], "properties": {"id": {"type": "string", "pattern": "^STP-[0-9]{4,6}$"}, "title": {"type": "string"}, "instructions": {"type": "string"}}},
+    "steps": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["id", "title", "instructions"],
+        "properties": {
+          "id": {"type": "string", "pattern": "^STP-[0-9]{4,6}$"},
+          "title": {"type": "string"},
+          "instructions": {"type": "string"}
+        },
+        "additionalProperties": false
+      }
+    },
     "evidence_requirements": {"type": "array", "minItems": 1, "items": {"type": "string"}},
     "success_criteria": {"type": "array", "minItems": 1, "items": {"type": "string"}},
     "assessment": {"type": "object"},
