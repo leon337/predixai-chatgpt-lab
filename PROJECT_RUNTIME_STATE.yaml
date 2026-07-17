@@ -5,21 +5,25 @@ repository: "leon337/predixai-chatgpt-lab"
 main_branch: "main"
 
 active_phase: "FOUNDATION_ARCHITECTURE"
-active_delivery: "DEC-0001_TO_DEC-0012_BASELINE"
+active_delivery: "FND-001_BASELINE_DEC_0001_TO_DEC_0012"
 active_linear_project: "0052540b-2077-4773-a853-7d310d9e79fe"
-active_linear_issue: null
-active_pull_request: null
+active_linear_issue: "LEA-22"
+active_review_issue: "LEA-23"
+active_pull_request: 1
 working_branch: "foundation/DEC-0001-0012-baseline-v0.1"
 
 transition_id: "FOUNDATION-T01"
 transition_status: "IN_PROGRESS"
 baseline_main_sha: "e4e4ee811e332e68a6b0c6b1fe823d994da83fe3"
+observed_pr_head: "f199e91bc4a4c3a6716c8110c008eb26e745820b"
+observed_pr_head_semantics: "INFORMATIONAL_PARENT_SNAPSHOT_NOT_CURRENT_ASSERTION"
 reviewed_head_sha: null
 
-current_gate: "ARCHITECTURE_INTEGRATION"
+current_gate: "AUTOMATED_FOUNDATION_VALIDATION"
 gate_status: "IN_PROGRESS"
-next_action: "COMPLETE_DECISIONS_AND_CROSS_MODULE_ARCHITECTURE"
+next_action: "OBSERVE_GITHUB_ACTIONS_THEN_EXECUTE_LEA_23_INDEPENDENT_REVIEW"
 blockers:
+  - "INDEPENDENT_CRITICAL_REVIEW_REQUIRED"
   - "DEC_0011_FINAL_RETEST_PENDING"
 
 authorizations:
@@ -32,7 +36,7 @@ authorizations:
   irreversible_automation: false
 
 sync:
-  github: "IN_PROGRESS"
+  github: "PASS"
   linear: "PASS"
 
 safety:
