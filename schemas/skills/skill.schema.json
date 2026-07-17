@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://predixai.example/schemas/skills/skill.schema.json",
+  "type": "object",
+  "required": ["id", "slug", "version", "status", "purpose", "activation", "inputs", "outputs", "supported_surfaces", "permissions", "dependencies", "tests", "limitations", "security"],
+  "properties": {
+    "id": {"type": "string", "pattern": "^SKL-[0-9]{4}$"},
+    "status": {"enum": ["EXPERIMENTAL", "PILOT", "VALIDATED", "STABLE", "DEPRECATED", "ARCHIVED"]},
+    "supported_surfaces": {"type": "array", "minItems": 1},
+    "permissions": {"type": "array"},
+    "tests": {"type": "array", "minItems": 1},
+    "surface_validations": {"type": "object"}
+  },
+  "additionalProperties": true
+}

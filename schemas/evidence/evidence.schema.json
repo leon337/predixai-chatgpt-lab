@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://predixai.example/schemas/evidence/evidence.schema.json",
+  "type": "object",
+  "required": ["id", "attempt_id", "classification", "status", "storage_ref", "content_hash"],
+  "properties": {
+    "id": {"type": "string"},
+    "attempt_id": {"type": "string"},
+    "classification": {"enum": ["PUBLIC", "INTERNAL", "PRIVATE", "SENSITIVE", "PROHIBITED"]},
+    "status": {"enum": ["DECLARED", "UPLOADED", "SCANNING", "AVAILABLE", "ACCEPTED", "REJECTED", "RETENTION_EXPIRED", "DELETED", "BLOCKED"]},
+    "storage_ref": {"type": ["string", "null"]},
+    "content_hash": {"type": ["string", "null"]},
+    "redacted": {"type": "boolean"},
+    "retention_until": {"type": ["string", "null"], "format": "date-time"}
+  },
+  "allOf": [
+    {"if": {"properties": {"classification": {"const": "PROHIBITED"}}}, "then": {"properties": {"storage_ref": {"type": "null"}, "status": {"const": "BLOCKED"}}}}
+  ]
+}

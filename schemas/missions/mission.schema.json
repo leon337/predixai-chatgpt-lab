@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://predixai.example/schemas/missions/mission.schema.json",
+  "title": "Mission contract",
+  "type": "object",
+  "required": ["id", "slug", "version", "status", "title", "type", "difficulty", "estimated_minutes", "xp", "objectives", "prerequisites", "execution_surfaces", "allowed_tools", "forbidden_actions", "steps", "evidence_requirements", "success_criteria", "assessment", "security"],
+  "properties": {
+    "id": {"type": "string", "pattern": "^MSN-[0-9]{4}$"},
+    "slug": {"type": "string"},
+    "version": {"type": "string"},
+    "status": {"enum": ["DRAFT", "IN_REVIEW", "PUBLISHED", "DEPRECATED", "ARCHIVED"]},
+    "title": {"type": "string", "minLength": 3},
+    "type": {"enum": ["TUTORIAL", "EXPLORATION", "LAB", "INTEGRATION", "REMEDIATION", "REVIEW", "BOSS"]},
+    "difficulty": {"enum": ["BEGINNER", "INTERMEDIATE", "ADVANCED"]},
+    "estimated_minutes": {"type": "integer", "minimum": 5},
+    "xp": {"type": "integer", "minimum": 0},
+    "objectives": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+    "prerequisites": {"type": "array", "items": {"type": "string"}},
+    "execution_surfaces": {"type": "array", "minItems": 1, "items": {"enum": ["CHAT", "STUDY_MODE", "PROJECT", "DEEP_RESEARCH", "AGENT_MODE", "WORK", "CODEX", "GITHUB", "OPENAI_API", "SIMULATION"]}},
+    "allowed_tools": {"type": "array", "items": {"type": "string"}},
+    "forbidden_actions": {"type": "array", "items": {"type": "string"}},
+    "steps": {"type": "array", "minItems": 1, "items": {"type": "object", "required": ["id", "title", "instructions"], "properties": {"id": {"type": "string", "pattern": "^STP-[0-9]{4,6}$"}, "title": {"type": "string"}, "instructions": {"type": "string"}}},
+    "evidence_requirements": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+    "success_criteria": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+    "assessment": {"type": "object"},
+    "security": {"type": "object"}
+  },
+  "additionalProperties": true
+}
