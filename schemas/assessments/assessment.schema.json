@@ -1,19 +1,94 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://predixai.example/schemas/assessments/assessment.schema.json",
+  "title": "Assessment result contract",
   "type": "object",
   "required": ["id", "attempt_id", "rubric_version", "criterion_scores", "eliminatory_checks", "total_score", "result"],
   "properties": {
     "id": {"type": "string", "pattern": "^EVL-[0-9]{4,6}$"},
-    "attempt_id": {"type": "string"},
-    "rubric_version": {"type": "string"},
-    "criterion_scores": {"type": "array", "minItems": 1},
+    "attempt_id": {"type": "string", "minLength": 1},
+    "rubric_version": {"type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"},
+    "criterion_scores": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["criterion_id", "score", "weight"],
+        "properties": {
+          "criterion_id": {"type": "string", "minLength": 1},
+          "score": {"type": "number", "minimum": 0, "maximum": 100},
+          "weight": {"type": "number", "exclusiveMinimum": 0, "maximum": 1}
+        },
+        "additionalProperties": false
+      }
+    },
     "eliminatory_checks": {
       "type": "object",
       "required": ["valid_evidence", "own_explanation", "security_compliant", "not_fabricated"],
-      "additionalProperties": {"type": "boolean"}
+      "properties": {
+        "valid_evidence": {"type": "boolean"},
+        "own_explanation": {"type": "boolean"},
+        "security_compliant": {"type": "boolean"},
+        "not_fabricated": {"type": "boolean"}
+      },
+      "additionalProperties": false
     },
     "total_score": {"type": "number", "minimum": 0, "maximum": 100},
     "result": {"enum": ["NOT_COMPLETED", "REMEDIATION", "MASTERED", "MASTERED_EXCELLENCE"]}
-  }
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"eliminatory_checks": {"properties": {"valid_evidence": {"const": false}}}}},
+      "then": {"properties": {"result": {"const": "NOT_COMPLETED"}}}
+    },
+    {
+      "if": {"properties": {"eliminatory_checks": {"properties": {"own_explanation": {"const": false}}}}},
+      "then": {"properties": {"result": {"const": "NOT_COMPLETED"}}}
+    },
+    {
+      "if": {"properties": {"eliminatory_checks": {"properties": {"security_compliant": {"const": false}}}}},
+      "then": {"properties": {"result": {"const": "NOT_COMPLETED"}}}
+    },
+    {
+      "if": {"properties": {"eliminatory_checks": {"properties": {"not_fabricated": {"const": false}}}}},
+      "then": {"properties": {"result": {"const": "NOT_COMPLETED"}}}
+    },
+    {
+      "if": {
+        "allOf": [
+          {"properties": {"eliminatory_checks": {"properties": {"valid_evidence": {"const": true}, "own_explanation": {"const": true}, "security_compliant": {"const": true}, "not_fabricated": {"const": true}}}}},
+          {"properties": {"total_score": {"minimum": 0, "exclusiveMaximum": 60}}}
+        ]
+      },
+      "then": {"properties": {"result": {"const": "NOT_COMPLETED"}}}
+    },
+    {
+      "if": {
+        "allOf": [
+          {"properties": {"eliminatory_checks": {"properties": {"valid_evidence": {"const": true}, "own_explanation": {"const": true}, "security_compliant": {"const": true}, "not_fabricated": {"const": true}}}}},
+          {"properties": {"total_score": {"minimum": 60, "exclusiveMaximum": 80}}}
+        ]
+      },
+      "then": {"properties": {"result": {"const": "REMEDIATION"}}}
+    },
+    {
+      "if": {
+        "allOf": [
+          {"properties": {"eliminatory_checks": {"properties": {"valid_evidence": {"const": true}, "own_explanation": {"const": true}, "security_compliant": {"const": true}, "not_fabricated": {"const": true}}}}},
+          {"properties": {"total_score": {"minimum": 80, "exclusiveMaximum": 90}}}
+        ]
+      },
+      "then": {"properties": {"result": {"const": "MASTERED"}}}
+    },
+    {
+      "if": {
+        "allOf": [
+          {"properties": {"eliminatory_checks": {"properties": {"valid_evidence": {"const": true}, "own_explanation": {"const": true}, "security_compliant": {"const": true}, "not_fabricated": {"const": true}}}}},
+          {"properties": {"total_score": {"minimum": 90, "maximum": 100}}}
+        ]
+      },
+      "then": {"properties": {"result": {"const": "MASTERED_EXCELLENCE"}}}
+    }
+  ],
+  "additionalProperties": false
 }
