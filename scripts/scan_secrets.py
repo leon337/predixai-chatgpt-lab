@@ -3,7 +3,6 @@ from __future__ import annotations
 
 import re
 import sys
-from dataclasses import dataclass
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -16,21 +15,14 @@ BINARY_SUFFIXES = {
     ".sqlite3", ".tar", ".webp", ".xlsx", ".zip",
 }
 
-
-@dataclass(frozen=True)
-class SecretPattern:
-    name: str
-    regex: re.Pattern[str]
-
-
-PATTERNS = (
-    SecretPattern("OpenAI-style API key", re.compile(r"\bsk-[A-Za-z0-9_-]{20,}\b")),
-    SecretPattern("GitHub classic token", re.compile(r"\bgh[pousr]_[A-Za-z0-9]{30,}\b")),
-    SecretPattern("GitHub fine-grained token", re.compile(r"\bgithub_pat_[A-Za-z0-9_]{40,}\b")),
-    SecretPattern("AWS access key", re.compile(r"\bAKIA[0-9A-Z]{16}\b")),
-    SecretPattern("Google API key", re.compile(r"\bAIza[0-9A-Za-z_-]{35}\b")),
-    SecretPattern("Slack token", re.compile(r"\bxox[baprs]-[0-9A-Za-z-]{20,}\b")),
-    SecretPattern("Private key material", re.compile(r"-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----")),
+PATTERNS: tuple[tuple[str, re.Pattern[str]], ...] = (
+    ("OpenAI-style API key", re.compile(r"\bsk-[A-Za-z0-9_-]{20,}\b")),
+    ("GitHub classic token", re.compile(r"\bgh[pousr]_[A-Za-z0-9]{30,}\b")),
+    ("GitHub fine-grained token", re.compile(r"\bgithub_pat_[A-Za-z0-9_]{40,}\b")),
+    ("AWS access key", re.compile(r"\bAKIA[0-9A-Z]{16}\b")),
+    ("Google API key", re.compile(r"\bAIza[0-9A-Za-z_-]{35}\b")),
+    ("Slack token", re.compile(r"\bxox[baprs]-[0-9A-Za-z-]{20,}\b")),
+    ("Private key material", re.compile(r"-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----")),
 )
 
 
@@ -39,9 +31,9 @@ def scan_text(text: str) -> list[tuple[str, int]]:
     for line_number, line in enumerate(text.splitlines(), start=1):
         if "secret-scan: allow" in line:
             continue
-        for pattern in PATTERNS:
-            if pattern.regex.search(line):
-                findings.append((pattern.name, line_number))
+        for pattern_name, pattern_regex in PATTERNS:
+            if pattern_regex.search(line):
+                findings.append((pattern_name, line_number))
     return findings
 
 
