@@ -15,6 +15,7 @@
     "current_gate",
     "gate_status",
     "next_action",
+    "blockers",
     "authorizations",
     "sync",
     "safety"
@@ -22,27 +23,39 @@
   "properties": {
     "schema_version": {"type": "string"},
     "state_revision": {"type": "integer", "minimum": 0},
-    "project": {"type": "string"},
-    "repository": {"type": "string"},
-    "main_branch": {"type": "string"},
-    "active_phase": {"type": "string"},
+    "project": {"type": "string", "minLength": 1},
+    "repository": {"type": "string", "minLength": 1},
+    "main_branch": {"type": "string", "minLength": 1},
+    "active_phase": {"type": "string", "minLength": 1},
     "active_delivery": {"type": ["string", "null"]},
     "active_linear_project": {"type": ["string", "null"]},
     "active_linear_issue": {"type": ["string", "null"]},
+    "active_review_issue": {"type": ["string", "null"]},
     "active_pull_request": {"type": ["integer", "null"]},
     "working_branch": {"type": ["string", "null"]},
-    "transition_id": {"type": "string"},
+    "transition_id": {"type": "string", "minLength": 1},
     "transition_status": {"enum": ["NOT_STARTED", "IN_PROGRESS", "PARTIAL", "COMPLETE", "BLOCKED"]},
-    "baseline_main_sha": {"type": ["string", "null"]},
-    "reviewed_head_sha": {"type": ["string", "null"]},
-    "current_gate": {"type": "string"},
+    "baseline_main_sha": {"type": ["string", "null"], "pattern": "^[a-f0-9]{40}$"},
+    "observed_pr_head": {"type": ["string", "null"], "pattern": "^[a-f0-9]{40}$"},
+    "observed_pr_head_semantics": {"type": ["string", "null"]},
+    "reviewed_head_sha": {"type": ["string", "null"], "pattern": "^[a-f0-9]{40}$"},
+    "current_gate": {"type": "string", "minLength": 1},
     "gate_status": {"enum": ["NOT_STARTED", "IN_PROGRESS", "PASS", "WARN", "FAIL", "BLOCKED"]},
-    "next_action": {"type": "string"},
-    "blockers": {"type": "array", "items": {"type": "string"}},
+    "next_action": {"type": "string", "minLength": 1},
+    "blockers": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
     "authorizations": {
       "type": "object",
       "required": ["implementation", "code_change", "database_design", "migration_execution", "merge", "production_integration", "irreversible_automation"],
-      "additionalProperties": {"type": "boolean"}
+      "properties": {
+        "implementation": {"type": "boolean"},
+        "code_change": {"type": "boolean"},
+        "database_design": {"type": "boolean"},
+        "migration_execution": {"type": "boolean"},
+        "merge": {"type": "boolean"},
+        "production_integration": {"type": "boolean"},
+        "irreversible_automation": {"type": "boolean"}
+      },
+      "additionalProperties": false
     },
     "sync": {
       "type": "object",
@@ -50,13 +63,34 @@
       "properties": {
         "github": {"enum": ["NOT_STARTED", "IN_PROGRESS", "PASS", "FAIL"]},
         "linear": {"enum": ["NOT_STARTED", "IN_PROGRESS", "PASS", "FAIL"]}
-      }
+      },
+      "additionalProperties": false
     },
     "safety": {
       "type": "object",
       "required": ["public_secrets_allowed", "personal_evidence_in_public_repo", "production_actions_allowed", "automatic_advance"],
-      "additionalProperties": {"type": "boolean"}
+      "properties": {
+        "public_secrets_allowed": {"type": "boolean"},
+        "personal_evidence_in_public_repo": {"type": "boolean"},
+        "production_actions_allowed": {"type": "boolean"},
+        "automatic_advance": {"type": "boolean"}
+      },
+      "additionalProperties": false
     }
   },
+  "allOf": [
+    {
+      "if": {"properties": {"transition_status": {"const": "COMPLETE"}}, "required": ["transition_status"]},
+      "then": {
+        "required": ["reviewed_head_sha"],
+        "properties": {
+          "reviewed_head_sha": {"type": "string", "pattern": "^[a-f0-9]{40}$"},
+          "gate_status": {"const": "PASS"},
+          "blockers": {"maxItems": 0},
+          "sync": {"properties": {"github": {"const": "PASS"}, "linear": {"const": "PASS"}}}
+        }
+      }
+    }
+  ],
   "additionalProperties": true
 }
