@@ -15,16 +15,26 @@ working_branch: "foundation/DEC-0001-0012-baseline-v0.1"
 transition_id: "FOUNDATION-T01"
 transition_status: "IN_PROGRESS"
 baseline_main_sha: "e4e4ee811e332e68a6b0c6b1fe823d994da83fe3"
-observed_pr_head: "f199e91bc4a4c3a6716c8110c008eb26e745820b"
+observed_pr_head: "c9a546c780621d192e77ececed963eb65c1931f3"
 observed_pr_head_semantics: "INFORMATIONAL_PARENT_SNAPSHOT_NOT_CURRENT_ASSERTION"
-reviewed_head_sha: null
+reviewed_head_sha: "c9b334bc4743f1e0297f0008ef7e38653c747783"
+review_status: "STALE_AFTER_REMEDIATION_RETEST_REQUIRED"
 
-current_gate: "AUTOMATED_FOUNDATION_VALIDATION"
+current_gate: "INDEPENDENT_CRITICAL_RETEST"
 gate_status: "IN_PROGRESS"
-next_action: "OBSERVE_GITHUB_ACTIONS_THEN_EXECUTE_LEA_23_INDEPENDENT_REVIEW"
+next_action: "RUN_CI_ON_STATE_COMMIT_THEN_REQUEST_CODEX_RETEST"
 blockers:
-  - "INDEPENDENT_CRITICAL_REVIEW_REQUIRED"
+  - "INDEPENDENT_CRITICAL_RETEST_REQUIRED"
   - "DEC_0011_FINAL_RETEST_PENDING"
+
+remediation:
+  source_review_head: "c9b334bc4743f1e0297f0008ef7e38653c747783"
+  p1_findings: 6
+  p2_findings: 3
+  findings_remediated: 9
+  automated_validation_on_parent_head: "PASS"
+  secret_scan: "PASS"
+  negative_contract_tests: "PASS"
 
 authorizations:
   implementation: true
@@ -43,4 +53,4 @@ safety:
   public_secrets_allowed: false
   personal_evidence_in_public_repo: false
   production_actions_allowed: false
-  automatic_advance: true
+  automatic_advance: false
