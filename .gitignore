@@ -1,0 +1,28 @@
+# Segredos e ambiente
+.env
+.env.*
+!.env.example
+
+# Bancos e evidências privadas
+*.sqlite
+*.sqlite3
+*.db
+private/
+evidence-private/
+
+# Node
+node_modules/
+dist/
+.next/
+coverage/
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+
+# IDE e sistema
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

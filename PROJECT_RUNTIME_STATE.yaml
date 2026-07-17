@@ -1,0 +1,42 @@
+schema_version: "0.1.0"
+state_revision: 1
+project: "PredixAI ChatGPT Lab / PredixAI Quest"
+repository: "leon337/predixai-chatgpt-lab"
+main_branch: "main"
+
+active_phase: "FOUNDATION_ARCHITECTURE"
+active_delivery: "DEC-0001_TO_DEC-0012_BASELINE"
+active_linear_project: "0052540b-2077-4773-a853-7d310d9e79fe"
+active_linear_issue: null
+active_pull_request: null
+working_branch: "foundation/DEC-0001-0012-baseline-v0.1"
+
+transition_id: "FOUNDATION-T01"
+transition_status: "IN_PROGRESS"
+baseline_main_sha: "e4e4ee811e332e68a6b0c6b1fe823d994da83fe3"
+reviewed_head_sha: null
+
+current_gate: "ARCHITECTURE_INTEGRATION"
+gate_status: "IN_PROGRESS"
+next_action: "COMPLETE_DECISIONS_AND_CROSS_MODULE_ARCHITECTURE"
+blockers:
+  - "DEC_0011_FINAL_RETEST_PENDING"
+
+authorizations:
+  implementation: true
+  code_change: true
+  database_design: true
+  migration_execution: false
+  merge: false
+  production_integration: false
+  irreversible_automation: false
+
+sync:
+  github: "IN_PROGRESS"
+  linear: "PASS"
+
+safety:
+  public_secrets_allowed: false
+  personal_evidence_in_public_repo: false
+  production_actions_allowed: false
+  automatic_advance: true

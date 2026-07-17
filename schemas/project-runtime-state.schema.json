@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://predixai.example/schemas/project-runtime-state.schema.json",
+  "title": "PredixAI ChatGPT Lab Runtime State",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "state_revision",
+    "project",
+    "repository",
+    "main_branch",
+    "active_phase",
+    "transition_id",
+    "transition_status",
+    "current_gate",
+    "gate_status",
+    "next_action",
+    "authorizations",
+    "sync",
+    "safety"
+  ],
+  "properties": {
+    "schema_version": {"type": "string"},
+    "state_revision": {"type": "integer", "minimum": 0},
+    "project": {"type": "string"},
+    "repository": {"type": "string"},
+    "main_branch": {"type": "string"},
+    "active_phase": {"type": "string"},
+    "active_delivery": {"type": ["string", "null"]},
+    "active_linear_project": {"type": ["string", "null"]},
+    "active_linear_issue": {"type": ["string", "null"]},
+    "active_pull_request": {"type": ["integer", "null"]},
+    "working_branch": {"type": ["string", "null"]},
+    "transition_id": {"type": "string"},
+    "transition_status": {"enum": ["NOT_STARTED", "IN_PROGRESS", "PARTIAL", "COMPLETE", "BLOCKED"]},
+    "baseline_main_sha": {"type": ["string", "null"]},
+    "reviewed_head_sha": {"type": ["string", "null"]},
+    "current_gate": {"type": "string"},
+    "gate_status": {"enum": ["NOT_STARTED", "IN_PROGRESS", "PASS", "WARN", "FAIL", "BLOCKED"]},
+    "next_action": {"type": "string"},
+    "blockers": {"type": "array", "items": {"type": "string"}},
+    "authorizations": {
+      "type": "object",
+      "required": ["implementation", "code_change", "database_design", "migration_execution", "merge", "production_integration", "irreversible_automation"],
+      "additionalProperties": {"type": "boolean"}
+    },
+    "sync": {
+      "type": "object",
+      "required": ["github", "linear"],
+      "properties": {
+        "github": {"enum": ["NOT_STARTED", "IN_PROGRESS", "PASS", "FAIL"]},
+        "linear": {"enum": ["NOT_STARTED", "IN_PROGRESS", "PASS", "FAIL"]}
+      }
+    },
+    "safety": {
+      "type": "object",
+      "required": ["public_secrets_allowed", "personal_evidence_in_public_repo", "production_actions_allowed", "automatic_advance"],
+      "additionalProperties": {"type": "boolean"}
+    }
+  },
+  "additionalProperties": true
+}
