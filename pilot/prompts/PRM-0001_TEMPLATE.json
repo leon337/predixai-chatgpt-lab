@@ -1,0 +1,24 @@
+{
+  "id": "PRM-0001",
+  "slug": "prompt-do-piloto",
+  "version": "0.1.0",
+  "status": "DRAFT",
+  "category": "MISSION",
+  "purpose": "Definir durante a MSN-0008.",
+  "inputs": {},
+  "expected_output": "Definir durante a MSN-0008.",
+  "output_schema": {"type": "object"},
+  "supported_surfaces": ["CHAT"],
+  "allowed_tools": [],
+  "forbidden_actions": ["Inventar evidência", "Expor segredos"],
+  "success_criteria": ["Definir critérios verificáveis antes da execução"],
+  "test_cases": [
+    {"id": "TST-PRM-0001", "variation_id": "VAR-PENDING-1", "input_variant": "definir-na-msn-0008", "expected_assertions": ["caso ainda não executado"]}
+  ],
+  "limitations": ["Template ainda não executado nem validado"],
+  "origin": {"source": "PredixAI Quest V0.1", "author": "Leo", "reviewed": false},
+  "content_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "security_review": {"status": "NOT_REVIEWED", "reviewer": null, "reviewed_at": null},
+  "controlled_executions": [],
+  "changelog": ["0.1.0 — template inicial sem alegação de validação"]
+}

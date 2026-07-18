@@ -1,0 +1,106 @@
+{
+  "track": {
+    "id": "TRK-0001",
+    "slug": "core",
+    "version": "1.0.0",
+    "status": "PILOT",
+    "position": 1,
+    "title": "CORE"
+  },
+  "campaigns": [
+    {
+      "id": "CMP-0001",
+      "slug": "dominio-ecossistema-chatgpt",
+      "version": "1.0.0",
+      "status": "PILOT",
+      "position": 1,
+      "title": "Domínio do Ecossistema ChatGPT",
+      "worlds": [
+        {
+          "id": "WRD-0001",
+          "slug": "fundamentos",
+          "version": "1.0.0",
+          "status": "PILOT",
+          "position": 1,
+          "title": "Fundamentos",
+          "modules": [
+            {
+              "id": "MOD-0001",
+              "slug": "ecossistema-e-contexto",
+              "version": "1.0.0",
+              "status": "PILOT",
+              "position": 1,
+              "title": "Ecossistema e contexto",
+              "missions": ["MSN-0001", "MSN-0002"]
+            },
+            {
+              "id": "MOD-0002",
+              "slug": "engenharia-de-prompts",
+              "version": "1.0.0",
+              "status": "PILOT",
+              "position": 2,
+              "title": "Engenharia de prompts",
+              "missions": ["MSN-0003"]
+            }
+          ]
+        },
+        {
+          "id": "WRD-0002",
+          "slug": "ferramentas-e-superficies",
+          "version": "1.0.0",
+          "status": "PILOT",
+          "position": 2,
+          "title": "Ferramentas e superfícies",
+          "modules": [
+            {
+              "id": "MOD-0003",
+              "slug": "arquivos-e-pesquisa",
+              "version": "1.0.0",
+              "status": "PILOT",
+              "position": 1,
+              "title": "Arquivos e pesquisa",
+              "missions": ["MSN-0004", "MSN-0005"]
+            },
+            {
+              "id": "MOD-0004",
+              "slug": "agentes-e-integracoes",
+              "version": "1.0.0",
+              "status": "PILOT",
+              "position": 2,
+              "title": "Agentes e integrações",
+              "missions": ["MSN-0006", "MSN-0007"]
+            }
+          ]
+        },
+        {
+          "id": "WRD-0003",
+          "slug": "reutilizacao-e-governanca",
+          "version": "1.0.0",
+          "status": "PILOT",
+          "position": 3,
+          "title": "Reutilização e governança",
+          "modules": [
+            {
+              "id": "MOD-0005",
+              "slug": "prompts-e-skills",
+              "version": "1.0.0",
+              "status": "PILOT",
+              "position": 1,
+              "title": "Prompts e Skills",
+              "missions": ["MSN-0008", "MSN-0009"]
+            },
+            {
+              "id": "MOD-0006",
+              "slug": "missao-chefe",
+              "version": "1.0.0",
+              "status": "PILOT",
+              "position": 2,
+              "title": "Missão-chefe",
+              "missions": ["MSN-0010"]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

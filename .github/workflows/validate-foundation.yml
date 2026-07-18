@@ -1,4 +1,4 @@
-name: Validate foundation
+name: Validate repository
 
 on:
   pull_request:
@@ -6,6 +6,7 @@ on:
     branches:
       - main
       - "foundation/**"
+      - "pilot/**"
 
 permissions:
   contents: read
@@ -26,7 +27,9 @@ jobs:
         run: python -m pip install -r requirements-dev.txt
       - name: Scan repository for secrets
         run: python scripts/scan_secrets.py
-      - name: Validate contracts and schemas
+      - name: Validate foundation contracts and schemas
         run: python scripts/validate_foundation.py
+      - name: Validate pilot contracts
+        run: python scripts/validate_pilot.py
       - name: Run tests
         run: python -m pytest -q

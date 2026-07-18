@@ -1,0 +1,45 @@
+{
+  "id": "MSN-0009",
+  "slug": "transformar-workflow-em-candidata-a-skill",
+  "version": "1.0.0",
+  "status": "IN_REVIEW",
+  "title": "Transformar workflow validado em candidata a Skill",
+  "type": "INTEGRATION",
+  "difficulty": "INTERMEDIATE",
+  "estimated_minutes": 75,
+  "xp": 230,
+  "context": "Um prompt validado pode originar uma Skill, mas a promoção exige separar núcleo portátil, adaptadores, permissões, testes e limitações.",
+  "objectives": ["Extrair um workflow estável", "Definir manifesto e núcleo portátil", "Criar candidata a Skill sem promovê-la prematuramente"],
+  "prerequisites": ["MSN-0008 dominada", "PRM-0001 com status VALIDATED ou limitação formalmente documentada"],
+  "core_concept": "Skill é um workflow reutilizável com contrato de entrada e saída, permissões explícitas, testes e adaptadores por superfície.",
+  "analogy": "Um processo artesanal vira ferramenta industrial quando recebe desenho, interface, limites, manutenção e ensaios de uso.",
+  "execution_environment": {
+    "primary_surface": "GITHUB",
+    "availability_status": "PRACTICAL_AVAILABLE",
+    "setup": ["Usar branch autorizada", "Carregar o prompt e o relatório de testes da MSN-0008"]
+  },
+  "execution_surfaces": ["CHAT", "CODEX", "GITHUB"],
+  "allowed_tools": ["GitHub", "ChatGPT", "Schema de Skill", "Ambiente sandbox"],
+  "forbidden_actions": ["Marcar STABLE sem três execuções variadas por superfície", "Solicitar permissão não necessária", "Executar efeito externo real"],
+  "practical_mission": "Criar SKL-0001 em status EXPERIMENTAL ou PILOT, definindo manifesto, núcleo portátil, adaptadores declarados, permissões, exemplos, testes e limitações.",
+  "steps": [
+    {"id": "STP-0901", "title": "Extrair o núcleo", "instructions": "Separe instruções invariantes de detalhes específicos da superfície.", "saveable": true},
+    {"id": "STP-0902", "title": "Definir manifesto", "instructions": "Registre ID, versão, propósito, ativação, entradas, saídas, ferramentas, permissões e aprovação humana.", "saveable": true},
+    {"id": "STP-0903", "title": "Projetar adaptadores", "instructions": "Descreva como CHAT e CODEX consumiriam o núcleo sem declarar validação inexistente.", "saveable": true},
+    {"id": "STP-0904", "title": "Criar testes", "instructions": "Especifique três variações e os resultados esperados para execução futura.", "saveable": true},
+    {"id": "STP-0905", "title": "Revisar segurança", "instructions": "Verifique menor privilégio, origem das instruções, efeitos externos e limitações.", "saveable": true}
+  ],
+  "evidence_requirements": ["Manifesto privado da SKL-0001", "Núcleo portátil", "Descrição de adaptadores", "Plano de testes", "Revisão de segurança"],
+  "success_criteria": ["Status não superior a PILOT", "Permissões mínimas", "Núcleo separado de adaptadores", "Limitações e testes documentados"],
+  "assessment": {"rubric_id": "RUB-0001", "competencies": ["CMP-SKL-001", "CMP-ADP-001", "CMP-PERM-002"]},
+  "own_words_explanation": {"required": true, "prompt": "Explique por que uma Skill candidata não deve ser chamada de estável apenas porque funcionou uma vez.", "minimum_words": 140},
+  "feedback": {"success_message": "Workflow convertido em candidata a Skill com fronteiras e limitações explícitas.", "remediation_message": "Revise separação do núcleo, permissões, superfícies declaradas e evidência necessária para promoção."},
+  "next_unlock": {"on_success": "MSN-0010", "on_remediation": "MSN-0009"},
+  "security": {
+    "evidence_classification": "PRIVATE",
+    "restrictions": ["Somente sandbox", "Sem execução externa", "Menor privilégio obrigatório"],
+    "human_approval_required": true,
+    "secrets_allowed": false,
+    "personal_data_allowed": false
+  }
+}

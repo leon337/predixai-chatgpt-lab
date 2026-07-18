@@ -1,0 +1,44 @@
+{
+  "id": "MSN-0004",
+  "slug": "trabalhar-com-arquivos-e-artefatos",
+  "version": "1.0.0",
+  "status": "IN_REVIEW",
+  "title": "Trabalhar com arquivos e artefatos",
+  "type": "LAB",
+  "difficulty": "BEGINNER",
+  "estimated_minutes": 45,
+  "xp": 150,
+  "context": "Arquivos, anexos e artefatos exigem fonte identificável, formato adequado, revisão e armazenamento coerente com a classificação dos dados.",
+  "objectives": ["Distinguir arquivo-fonte de artefato gerado", "Selecionar formato de entrega", "Aplicar revisão e rastreabilidade"],
+  "prerequisites": ["MSN-0003 dominada"],
+  "core_concept": "Um artefato confiável possui origem, versão, finalidade, critérios de validação e local de armazenamento definidos.",
+  "analogy": "Na fabricação, a matéria-prima, o desenho e a peça acabada são relacionados, mas não são a mesma coisa e não recebem o mesmo controle.",
+  "execution_environment": {
+    "primary_surface": "CHAT",
+    "availability_status": "PRACTICAL_AVAILABLE",
+    "setup": ["Usar somente arquivos fictícios ou públicos", "Definir previamente o formato de saída"]
+  },
+  "execution_surfaces": ["CHAT", "PROJECT", "GITHUB"],
+  "allowed_tools": ["Anexos do ChatGPT", "GitHub", "Gerador de artefatos compatível"],
+  "forbidden_actions": ["Inventar conteúdo não lido", "Publicar arquivo privado", "Confundir referência de arquivo com arquivo disponível no ambiente"] ,
+  "practical_mission": "Receber um pequeno arquivo fictício, extrair requisitos, produzir um artefato derivado e criar um checklist de validação e entrega.",
+  "steps": [
+    {"id": "STP-0401", "title": "Classificar a fonte", "instructions": "Identifique formato, origem, sensibilidade, versão e limitações do arquivo.", "saveable": true},
+    {"id": "STP-0402", "title": "Extrair requisitos", "instructions": "Liste requisitos explícitos, lacunas e itens que não podem ser inferidos.", "saveable": true},
+    {"id": "STP-0403", "title": "Produzir o artefato", "instructions": "Gere o artefato no formato solicitado sem adicionar fatos não suportados.", "saveable": true},
+    {"id": "STP-0404", "title": "Validar e entregar", "instructions": "Confira conteúdo, formato, nome, versão, armazenamento e link de entrega.", "saveable": true}
+  ],
+  "evidence_requirements": ["Inventário privado da fonte", "Artefato derivado", "Checklist de validação preenchido"],
+  "success_criteria": ["Origem e versão registradas", "Nenhum conteúdo inventado", "Formato adequado", "Artefato acessível no local declarado"],
+  "assessment": {"rubric_id": "RUB-0001", "competencies": ["CMP-FILE-001", "CMP-ART-001", "CMP-PRV-001"]},
+  "own_words_explanation": {"required": true, "prompt": "Explique a diferença entre citar um arquivo, ler seu conteúdo e gerar um novo artefato a partir dele.", "minimum_words": 100},
+  "feedback": {"success_message": "Fluxo de arquivo e artefato concluído com rastreabilidade.", "remediation_message": "Revise a origem, as inferências não suportadas e o local real do artefato antes de reenviar."},
+  "next_unlock": {"on_success": "MSN-0005", "on_remediation": "MSN-0004"},
+  "security": {
+    "evidence_classification": "PRIVATE",
+    "restrictions": ["Usar somente arquivo sanitizado", "Não publicar dados pessoais ou anexos privados"],
+    "human_approval_required": false,
+    "secrets_allowed": false,
+    "personal_data_allowed": false
+  }
+}

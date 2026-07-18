@@ -1,0 +1,43 @@
+{
+  "id": "MSN-0006",
+  "slug": "diferenciar-agent-mode-work-e-codex",
+  "version": "1.0.0",
+  "status": "IN_REVIEW",
+  "title": "Diferenciar Agent Mode, Work e Codex",
+  "type": "EXPLORATION",
+  "difficulty": "INTERMEDIATE",
+  "estimated_minutes": 35,
+  "xp": 160,
+  "context": "Superfícies agênticas e de engenharia podem parecer equivalentes, mas diferem em objetivo, ferramentas, duração, autorização e risco.",
+  "objectives": ["Distinguir Agent Mode, Work e Codex", "Selecionar a superfície por tipo de entrega", "Reconhecer limites de autonomia e aprovação"],
+  "prerequisites": ["MSN-0005 dominada"],
+  "core_concept": "Agência não é autonomia irrestrita: cada superfície opera sob ferramentas, permissões, ambiente e gates específicos.",
+  "analogy": "Agent Mode é um coordenador de tarefas, Work é uma estação de produção e Codex é um engenheiro atuando diretamente sobre um repositório controlado.",
+  "execution_environment": {
+    "primary_surface": "SIMULATION",
+    "availability_status": "SIMULATION_AVAILABLE",
+    "setup": ["Usar cenários fictícios", "Tratar recursos indisponíveis como análise documental ou simulação"]
+  },
+  "execution_surfaces": ["AGENT_MODE", "WORK", "CODEX", "SIMULATION"],
+  "allowed_tools": ["Simulação controlada", "Documentação oficial", "Repositório sandbox"],
+  "forbidden_actions": ["Executar em produção", "Conceder permissão excessiva", "Confundir planejamento com execução confirmada"],
+  "practical_mission": "Classificar oito tarefas entre Agent Mode, Work, Codex ou nenhuma delas e desenhar o gate humano necessário para cada ação com efeito externo.",
+  "steps": [
+    {"id": "STP-0601", "title": "Comparar superfícies", "instructions": "Descreva objetivo, entrada, ferramentas, saída, persistência e risco de cada superfície.", "saveable": true},
+    {"id": "STP-0602", "title": "Classificar tarefas", "instructions": "Associe oito tarefas à superfície correta ou marque como inadequada.", "saveable": true},
+    {"id": "STP-0603", "title": "Desenhar gates", "instructions": "Defina preview, simulação, aprovação, execução, auditoria e rollback para ações externas.", "saveable": true}
+  ],
+  "evidence_requirements": ["Quadro comparativo privado", "Classificação de oito tarefas", "Diagrama de gates humanos"],
+  "success_criteria": ["Nenhuma superfície tratada como ilimitada", "Tarefas justificadas por capacidade e risco", "Ações externas possuem aprovação explícita"],
+  "assessment": {"rubric_id": "RUB-0001", "competencies": ["CMP-AGT-001", "CMP-AUT-001", "CMP-SAFE-001"]},
+  "own_words_explanation": {"required": true, "prompt": "Explique por que fornecer ferramentas a um agente não garante um resultado correto nem autoriza qualquer ação.", "minimum_words": 120},
+  "feedback": {"success_message": "Superfícies agênticas diferenciadas por capacidade, ambiente e gate humano.", "remediation_message": "Revise onde ocorre planejamento, produção e alteração de repositório e reavalie os riscos."},
+  "next_unlock": {"on_success": "MSN-0007", "on_remediation": "MSN-0006"},
+  "security": {
+    "evidence_classification": "PRIVATE",
+    "restrictions": ["Somente sandbox e simulação", "Nenhuma credencial real", "Nenhuma ação irreversível"],
+    "human_approval_required": true,
+    "secrets_allowed": false,
+    "personal_data_allowed": false
+  }
+}

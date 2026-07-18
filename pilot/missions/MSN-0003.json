@@ -1,0 +1,44 @@
+{
+  "id": "MSN-0003",
+  "slug": "construir-prompts-com-contexto-e-criterios",
+  "version": "1.0.0",
+  "status": "IN_REVIEW",
+  "title": "Construir prompts com contexto e critérios claros",
+  "type": "LAB",
+  "difficulty": "BEGINNER",
+  "estimated_minutes": 45,
+  "xp": 140,
+  "context": "Prompts vagos geram respostas plausíveis, porém difíceis de verificar, repetir e reutilizar.",
+  "objectives": ["Compor um prompt em camadas", "Definir critérios verificáveis", "Separar restrições, ferramentas e formato de saída"],
+  "prerequisites": ["MSN-0002 dominada"],
+  "core_concept": "Um prompt confiável explicita objetivo, contexto, dados, restrições, ferramentas, formato e critérios de sucesso.",
+  "analogy": "Um prompt é uma ordem de serviço: sem escopo, medidas, tolerâncias e inspeção, o resultado não pode ser aceito com segurança.",
+  "execution_environment": {
+    "primary_surface": "CHAT",
+    "availability_status": "PRACTICAL_AVAILABLE",
+    "setup": ["Selecionar uma tarefa fictícia", "Preparar três níveis de detalhe para comparação"]
+  },
+  "execution_surfaces": ["CHAT", "STUDY_MODE"],
+  "allowed_tools": ["ChatGPT", "Template de prompt do projeto"],
+  "forbidden_actions": ["Incluir segredo", "Pedir resultado sem critérios", "Ocultar incerteza ou limitação"],
+  "practical_mission": "Transformar um pedido vago em um prompt estruturado, executá-lo em três variações e comparar os resultados.",
+  "steps": [
+    {"id": "STP-0301", "title": "Diagnosticar o pedido", "instructions": "Identifique objetivo, informações ausentes, risco e resultado esperado.", "saveable": true},
+    {"id": "STP-0302", "title": "Compor o prompt", "instructions": "Escreva as camadas de papel, objetivo, contexto, restrições, ferramentas, formato e critérios.", "saveable": true},
+    {"id": "STP-0303", "title": "Executar variações", "instructions": "Teste o prompt com três entradas distintas e registre diferenças.", "saveable": true},
+    {"id": "STP-0304", "title": "Revisar", "instructions": "Corrija ambiguidades e documente limitações conhecidas.", "saveable": true}
+  ],
+  "evidence_requirements": ["Prompt versionado em armazenamento privado", "Três saídas controladas", "Tabela de comparação e revisão"],
+  "success_criteria": ["Todas as camadas essenciais presentes", "Critérios observáveis", "Três entradas realmente distintas", "Limitações documentadas"],
+  "assessment": {"rubric_id": "RUB-0001", "competencies": ["CMP-PRM-001", "CMP-EVL-001"]},
+  "own_words_explanation": {"required": true, "prompt": "Explique como critérios de sucesso mudam a qualidade e a verificabilidade de uma resposta.", "minimum_words": 100},
+  "feedback": {"success_message": "Prompt estruturado, executável e verificável.", "remediation_message": "Identifique a camada ausente, refaça uma variação e compare o efeito da correção."},
+  "next_unlock": {"on_success": "MSN-0004", "on_remediation": "MSN-0003"},
+  "security": {
+    "evidence_classification": "PRIVATE",
+    "restrictions": ["Usar dados fictícios", "Não instruir ações perigosas ou irreversíveis"],
+    "human_approval_required": false,
+    "secrets_allowed": false,
+    "personal_data_allowed": false
+  }
+}

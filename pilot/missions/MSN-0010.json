@@ -1,0 +1,46 @@
+{
+  "id": "MSN-0010",
+  "slug": "missao-chefe-fluxo-integrado-e-seguro",
+  "version": "1.0.0",
+  "status": "IN_REVIEW",
+  "title": "Missão-chefe: projetar um fluxo integrado e seguro",
+  "type": "BOSS",
+  "difficulty": "INTERMEDIATE",
+  "estimated_minutes": 120,
+  "xp": 400,
+  "context": "A missão final integra seleção de superfície, contexto, pesquisa, arquivos, prompts, Skills, GitHub, Linear, evidências e gates humanos.",
+  "objectives": ["Projetar um workflow ponta a ponta", "Aplicar fontes de verdade e governança", "Demonstrar segurança, avaliação e recuperação"],
+  "prerequisites": ["MSN-0001 a MSN-0009 dominadas", "Remediações obrigatórias encerradas", "Revisões de 24 horas concluídas para competências exigidas"],
+  "core_concept": "Um sistema agêntico confiável é uma cadeia de contratos, evidências e autorizações, não apenas uma sequência de ferramentas.",
+  "analogy": "Uma obra segura depende do projeto, materiais, equipe, inspeções, registros e liberações; nenhuma máquina substitui a responsabilidade do processo.",
+  "execution_environment": {
+    "primary_surface": "SIMULATION",
+    "availability_status": "SIMULATION_AVAILABLE",
+    "setup": ["Escolher um projeto fictício", "Usar somente dados, contas e repositórios sandbox", "Definir a autoridade humana de merge e ações externas"]
+  },
+  "execution_surfaces": ["CHAT", "PROJECT", "DEEP_RESEARCH", "AGENT_MODE", "WORK", "CODEX", "GITHUB", "OPENAI_API", "SIMULATION"],
+  "allowed_tools": ["ChatGPT", "GitHub sandbox", "Linear", "Busca web", "Deep Research", "Simulações de agente e API"],
+  "forbidden_actions": ["Executar integração de produção", "Usar credencial real", "Fazer ação irreversível", "Declarar teste não executado", "Ignorar revisão independente"],
+  "practical_mission": "Projetar e demonstrar, por simulação controlada, um fluxo completo que receba uma necessidade, escolha superfícies, pesquise, produza artefatos, versione prompt ou Skill, abra entrega no GitHub, sincronize o Linear e encerre com evidências e recibo pós-merge simulado.",
+  "steps": [
+    {"id": "STP-1001", "title": "Definir o caso", "instructions": "Documente objetivo, usuário, restrições, risco, dados e resultado esperado.", "saveable": true},
+    {"id": "STP-1002", "title": "Desenhar arquitetura", "instructions": "Mapeie domínios, superfícies, contratos, armazenamento e fontes de verdade.", "saveable": true},
+    {"id": "STP-1003", "title": "Planejar governança", "instructions": "Defina Linear, branch, PR, CI, revisão exata, autorização e recibo pós-merge.", "saveable": true},
+    {"id": "STP-1004", "title": "Executar simulação", "instructions": "Percorra o fluxo com dados fictícios e registre cada gate sem executar efeitos reais.", "saveable": true},
+    {"id": "STP-1005", "title": "Testar falhas", "instructions": "Simule segredo exposto, revisão obsoleta, sincronização parcial e evidência inválida e demonstre o bloqueio.", "saveable": true},
+    {"id": "STP-1006", "title": "Apresentar decisão", "instructions": "Produza relatório final com riscos, limitações, rollback e recomendação GO ou NO_GO.", "saveable": true}
+  ],
+  "evidence_requirements": ["Diagrama do fluxo", "Matriz de autoridades e permissões", "Log da simulação", "Resultados de quatro testes de falha", "Relatório final e explicação própria"],
+  "success_criteria": ["Fluxo cobre entrada até recibo final", "Fontes de verdade não se contradizem", "Quatro falhas bloqueadas corretamente", "Zero segredo ou dado pessoal", "Nota final maior ou igual a 80"],
+  "assessment": {"rubric_id": "RUB-0001", "competencies": ["CMP-ARCH-001", "CMP-GOV-002", "CMP-SAFE-002", "CMP-INT-002", "CMP-EVL-002"]},
+  "own_words_explanation": {"required": true, "prompt": "Explique quais controles impedem que o fluxo pareça bem-sucedido sem ter sido realmente validado.", "minimum_words": 200},
+  "feedback": {"success_message": "Missão-chefe concluída com arquitetura, governança, evidências e segurança integradas.", "remediation_message": "Identifique o gate ausente ou a evidência insuficiente, corrija o fluxo e repita apenas as etapas afetadas."},
+  "next_unlock": {"on_success": null, "on_remediation": "MSN-0010"},
+  "security": {
+    "evidence_classification": "PRIVATE",
+    "restrictions": ["Somente dados fictícios e sandbox", "Aprovação humana em todo efeito externo", "Nenhuma integração de produção"],
+    "human_approval_required": true,
+    "secrets_allowed": false,
+    "personal_data_allowed": false
+  }
+}
