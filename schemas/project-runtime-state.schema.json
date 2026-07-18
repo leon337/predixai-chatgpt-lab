@@ -4,21 +4,9 @@
   "title": "PredixAI ChatGPT Lab Runtime State",
   "type": "object",
   "required": [
-    "schema_version",
-    "state_revision",
-    "project",
-    "repository",
-    "main_branch",
-    "active_phase",
-    "transition_id",
-    "transition_status",
-    "current_gate",
-    "gate_status",
-    "next_action",
-    "blockers",
-    "authorizations",
-    "sync",
-    "safety"
+    "schema_version", "state_revision", "project", "repository", "main_branch", "active_phase",
+    "transition_id", "transition_status", "current_gate", "gate_status", "next_action",
+    "blockers", "authorizations", "sync", "safety"
   ],
   "properties": {
     "schema_version": {"type": "string"},
@@ -39,10 +27,12 @@
     "observed_pr_head": {"type": ["string", "null"], "pattern": "^[a-f0-9]{40}$"},
     "observed_pr_head_semantics": {"type": ["string", "null"]},
     "reviewed_head_sha": {"type": ["string", "null"], "pattern": "^[a-f0-9]{40}$"},
+    "review_status": {"type": ["string", "null"]},
     "current_gate": {"type": "string", "minLength": 1},
     "gate_status": {"enum": ["NOT_STARTED", "IN_PROGRESS", "PASS", "WARN", "FAIL", "BLOCKED"]},
     "next_action": {"type": "string", "minLength": 1},
     "blockers": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+    "remediation": {"type": ["object", "null"]},
     "authorizations": {
       "type": "object",
       "required": ["implementation", "code_change", "database_design", "migration_execution", "merge", "production_integration", "irreversible_automation"],
@@ -82,8 +72,9 @@
     {
       "if": {"properties": {"transition_status": {"const": "COMPLETE"}}, "required": ["transition_status"]},
       "then": {
-        "required": ["reviewed_head_sha"],
+        "required": ["observed_pr_head", "reviewed_head_sha"],
         "properties": {
+          "observed_pr_head": {"type": "string", "pattern": "^[a-f0-9]{40}$"},
           "reviewed_head_sha": {"type": "string", "pattern": "^[a-f0-9]{40}$"},
           "gate_status": {"const": "PASS"},
           "blockers": {"maxItems": 0},
@@ -92,5 +83,7 @@
       }
     }
   ],
-  "additionalProperties": true
+  "additionalProperties": false,
+  "x-semantic-validator": "scripts/contract_semantics.py#validate_runtime_state_semantics",
+  "x-semantic-invariants": ["COMPLETE requires observed_pr_head equal to reviewed_head_sha"]
 }
