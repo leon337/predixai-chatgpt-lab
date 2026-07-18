@@ -33,62 +33,47 @@
       },
       "additionalProperties": false
     },
-    "total_score": {"type": "number", "minimum": 0, "maximum": 100},
+    "total_score": {"type": "number", "minimum": 0, "maximum": 100, "readOnly": true},
     "result": {"enum": ["NOT_COMPLETED", "REMEDIATION", "MASTERED", "MASTERED_EXCELLENCE"]}
   },
   "allOf": [
+    {"if": {"properties": {"eliminatory_checks": {"properties": {"valid_evidence": {"const": false}}}}}, "then": {"properties": {"result": {"const": "NOT_COMPLETED"}}}},
+    {"if": {"properties": {"eliminatory_checks": {"properties": {"own_explanation": {"const": false}}}}}, "then": {"properties": {"result": {"const": "NOT_COMPLETED"}}}},
+    {"if": {"properties": {"eliminatory_checks": {"properties": {"security_compliant": {"const": false}}}}}, "then": {"properties": {"result": {"const": "NOT_COMPLETED"}}}},
+    {"if": {"properties": {"eliminatory_checks": {"properties": {"not_fabricated": {"const": false}}}}}, "then": {"properties": {"result": {"const": "NOT_COMPLETED"}}}},
     {
-      "if": {"properties": {"eliminatory_checks": {"properties": {"valid_evidence": {"const": false}}}}},
+      "if": {"allOf": [
+        {"properties": {"eliminatory_checks": {"properties": {"valid_evidence": {"const": true}, "own_explanation": {"const": true}, "security_compliant": {"const": true}, "not_fabricated": {"const": true}}}}},
+        {"properties": {"total_score": {"minimum": 0, "exclusiveMaximum": 60}}}
+      ]},
       "then": {"properties": {"result": {"const": "NOT_COMPLETED"}}}
     },
     {
-      "if": {"properties": {"eliminatory_checks": {"properties": {"own_explanation": {"const": false}}}}},
-      "then": {"properties": {"result": {"const": "NOT_COMPLETED"}}}
-    },
-    {
-      "if": {"properties": {"eliminatory_checks": {"properties": {"security_compliant": {"const": false}}}}},
-      "then": {"properties": {"result": {"const": "NOT_COMPLETED"}}}
-    },
-    {
-      "if": {"properties": {"eliminatory_checks": {"properties": {"not_fabricated": {"const": false}}}}},
-      "then": {"properties": {"result": {"const": "NOT_COMPLETED"}}}
-    },
-    {
-      "if": {
-        "allOf": [
-          {"properties": {"eliminatory_checks": {"properties": {"valid_evidence": {"const": true}, "own_explanation": {"const": true}, "security_compliant": {"const": true}, "not_fabricated": {"const": true}}}}},
-          {"properties": {"total_score": {"minimum": 0, "exclusiveMaximum": 60}}}
-        ]
-      },
-      "then": {"properties": {"result": {"const": "NOT_COMPLETED"}}}
-    },
-    {
-      "if": {
-        "allOf": [
-          {"properties": {"eliminatory_checks": {"properties": {"valid_evidence": {"const": true}, "own_explanation": {"const": true}, "security_compliant": {"const": true}, "not_fabricated": {"const": true}}}}},
-          {"properties": {"total_score": {"minimum": 60, "exclusiveMaximum": 80}}}
-        ]
-      },
+      "if": {"allOf": [
+        {"properties": {"eliminatory_checks": {"properties": {"valid_evidence": {"const": true}, "own_explanation": {"const": true}, "security_compliant": {"const": true}, "not_fabricated": {"const": true}}}}},
+        {"properties": {"total_score": {"minimum": 60, "exclusiveMaximum": 80}}}
+      ]},
       "then": {"properties": {"result": {"const": "REMEDIATION"}}}
     },
     {
-      "if": {
-        "allOf": [
-          {"properties": {"eliminatory_checks": {"properties": {"valid_evidence": {"const": true}, "own_explanation": {"const": true}, "security_compliant": {"const": true}, "not_fabricated": {"const": true}}}}},
-          {"properties": {"total_score": {"minimum": 80, "exclusiveMaximum": 90}}}
-        ]
-      },
+      "if": {"allOf": [
+        {"properties": {"eliminatory_checks": {"properties": {"valid_evidence": {"const": true}, "own_explanation": {"const": true}, "security_compliant": {"const": true}, "not_fabricated": {"const": true}}}}},
+        {"properties": {"total_score": {"minimum": 80, "exclusiveMaximum": 90}}}
+      ]},
       "then": {"properties": {"result": {"const": "MASTERED"}}}
     },
     {
-      "if": {
-        "allOf": [
-          {"properties": {"eliminatory_checks": {"properties": {"valid_evidence": {"const": true}, "own_explanation": {"const": true}, "security_compliant": {"const": true}, "not_fabricated": {"const": true}}}}},
-          {"properties": {"total_score": {"minimum": 90, "maximum": 100}}}
-        ]
-      },
+      "if": {"allOf": [
+        {"properties": {"eliminatory_checks": {"properties": {"valid_evidence": {"const": true}, "own_explanation": {"const": true}, "security_compliant": {"const": true}, "not_fabricated": {"const": true}}}}},
+        {"properties": {"total_score": {"minimum": 90, "maximum": 100}}}
+      ]},
       "then": {"properties": {"result": {"const": "MASTERED_EXCELLENCE"}}}
     }
   ],
-  "additionalProperties": false
+  "additionalProperties": false,
+  "x-semantic-validator": "scripts/contract_semantics.py#validate_assessment_semantics",
+  "x-semantic-invariants": [
+    "criterion weights sum to 1.0",
+    "total_score equals the weighted criterion score"
+  ]
 }
