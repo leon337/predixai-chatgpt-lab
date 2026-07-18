@@ -1,19 +1,43 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://predixai.example/schemas/evidence/evidence.schema.json",
+  "title": "Evidence metadata contract",
   "type": "object",
-  "required": ["id", "attempt_id", "classification", "status", "storage_ref", "content_hash"],
+  "required": ["id", "attempt_id", "classification", "status", "storage_ref", "content_hash", "redacted", "retention_until"],
   "properties": {
-    "id": {"type": "string"},
-    "attempt_id": {"type": "string"},
+    "id": {"type": "string", "minLength": 1},
+    "attempt_id": {"type": "string", "minLength": 1},
     "classification": {"enum": ["PUBLIC", "INTERNAL", "PRIVATE", "SENSITIVE", "PROHIBITED"]},
     "status": {"enum": ["DECLARED", "UPLOADED", "SCANNING", "AVAILABLE", "ACCEPTED", "REJECTED", "RETENTION_EXPIRED", "DELETED", "BLOCKED"]},
     "storage_ref": {"type": ["string", "null"]},
     "content_hash": {"type": ["string", "null"]},
     "redacted": {"type": "boolean"},
-    "retention_until": {"type": ["string", "null"], "format": "date-time"}
+    "retention_until": {"type": ["string", "null"], "format": "date-time"},
+    "block_reason": {"type": ["string", "null"]},
+    "deleted_at": {"type": ["string", "null"], "format": "date-time"}
   },
   "allOf": [
-    {"if": {"properties": {"classification": {"const": "PROHIBITED"}}}, "then": {"properties": {"storage_ref": {"type": "null"}, "status": {"const": "BLOCKED"}}}}
-  ]
+    {
+      "if": {"properties": {"classification": {"const": "PROHIBITED"}}, "required": ["classification"]},
+      "then": {
+        "required": ["block_reason"],
+        "properties": {
+          "storage_ref": {"type": "null"},
+          "content_hash": {"type": "null"},
+          "redacted": {"const": false},
+          "retention_until": {"type": "null"},
+          "status": {"enum": ["BLOCKED", "DELETED"]},
+          "block_reason": {"type": "string", "minLength": 1}
+        }
+      }
+    },
+    {
+      "if": {"properties": {"classification": {"const": "PROHIBITED"}, "status": {"const": "DELETED"}}, "required": ["classification", "status"]},
+      "then": {
+        "required": ["deleted_at"],
+        "properties": {"deleted_at": {"type": "string", "format": "date-time"}}
+      }
+    }
+  ],
+  "additionalProperties": false
 }
