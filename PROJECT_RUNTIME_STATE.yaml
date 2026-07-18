@@ -1,70 +1,56 @@
 schema_version: "0.1.0"
-state_revision: 4
+state_revision: 5
 project: "PredixAI ChatGPT Lab / PredixAI Quest"
 repository: "leon337/predixai-chatgpt-lab"
 main_branch: "main"
 
-active_phase: "FOUNDATION_ARCHITECTURE_COMPLETE"
-active_delivery: "FND-001_BASELINE_DEC_0001_TO_DEC_0012"
+active_phase: "PILOT_MANUAL_V0_1"
+active_delivery: "PIL-001_CONTRATOS_E_EXECUCAO_DAS_10_MISSOES"
 active_linear_project: "0052540b-2077-4773-a853-7d310d9e79fe"
-active_linear_issue: "LEA-22"
-active_review_issue: "LEA-23"
-active_pull_request: 1
-working_branch: null
+active_linear_issue: "LEA-24"
+active_review_issue: "LEA-28"
+active_pull_request: null
+working_branch: "pilot/LEA-24-v0.1"
 
-transition_id: "FOUNDATION-T01"
-transition_status: "COMPLETE"
-baseline_main_sha: "e4e4ee811e332e68a6b0c6b1fe823d994da83fe3"
-observed_pr_head: "32a5aaf234ce98a06b8117d50b2b0a58e2a96f1f"
-observed_pr_head_semantics: "EXACT_REVIEWED_AND_MERGED_PR_HEAD"
-reviewed_head_sha: "32a5aaf234ce98a06b8117d50b2b0a58e2a96f1f"
-review_status: "PASS_FIFTH_INDEPENDENT_RETEST_ZERO_P1_P2"
+transition_id: "PILOT-T01"
+transition_status: "IN_PROGRESS"
+baseline_main_sha: "5ea1defc1c7c66be4bc86427c72e4631e491c1f0"
+observed_pr_head: null
+observed_pr_head_semantics: "NO_PR_OPENED_YET"
+reviewed_head_sha: null
+review_status: "NOT_STARTED"
 
-current_gate: "FOUNDATION_MERGE_CONFIRMED"
-gate_status: "PASS"
-next_action: "CLOSE_LEA_22_AND_LEA_23_THEN_PREPARE_LEA_24_WITHOUT_AUTOMATIC_START"
-blockers: []
+current_gate: "PILOT_CONTRACT_AUTHORING_AND_VALIDATION"
+gate_status: "IN_PROGRESS"
+next_action: "RUN_CI_OPEN_DRAFT_PR_AND_START_LEA_28_REVIEW_ON_EXACT_HEAD"
+blockers:
+  - "INDEPENDENT_REVIEW_REQUIRED_BEFORE_MSN_0001"
+  - "PILOT_EXECUTION_NOT_AUTHORIZED_BEFORE_CONTRACT_PASS"
 
 remediation:
-  review_cycle_1:
-    reviewed_head: "c9b334bc4743f1e0297f0008ef7e38653c747783"
-    p1_findings: 6
-    p2_findings: 3
-    findings_remediated: 9
-  review_cycle_2:
-    reviewed_head: "aa3e3ae2b4c4c7a2807844e2356bd56d771b5317"
-    p1_findings: 7
-    p2_findings: 3
-    findings_remediated: 10
-  review_cycle_3:
-    reviewed_head: "e5d3214a30334fab279bb54b2556d38242169764"
-    p1_findings: 1
-    p2_findings: 2
-    findings_remediated: 3
-  review_cycle_4:
-    reviewed_head: "7fc45e5e8a851483e63e31a3f78e2340499114a2"
-    p1_findings: 1
-    p2_findings: 0
-    findings_remediated: 1
-  review_cycle_5:
-    reviewed_head: "32a5aaf234ce98a06b8117d50b2b0a58e2a96f1f"
-    p1_findings: 0
-    p2_findings: 0
-    findings_remediated: 0
-  structural_validation: "PASS"
-  runtime_semantic_validation: "PASS"
-  contract_semantic_validation: "PASS"
-  secret_scan: "PASS"
-  adversarial_tests: "PASS"
-  latest_validated_contract_head: "32a5aaf234ce98a06b8117d50b2b0a58e2a96f1f"
-  merge_commit: "8e5669632c8241b02fdc01e680bb3b3f71865fd7"
+  foundation_receipt:
+    merge_commit: "8e5669632c8241b02fdc01e680bb3b3f71865fd7"
+    post_merge_state_commit: "5ea1defc1c7c66be4bc86427c72e4631e491c1f0"
+    dec_0011: "APPROVED_1.0.0"
+  pilot_scope:
+    track_count: 1
+    campaign_count: 1
+    world_count: 3
+    module_count: 6
+    mission_count: 10
+    learner_count: 1
+  contract_status:
+    authored: 10
+    automated_validation: "PENDING"
+    independent_review: "NOT_STARTED"
+    execution_started: false
 
 authorizations:
   implementation: true
   code_change: true
   database_design: true
   migration_execution: false
-  merge: true
+  merge: false
   production_integration: false
   irreversible_automation: false
 
