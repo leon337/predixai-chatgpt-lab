@@ -2,11 +2,11 @@
 from __future__ import annotations
 
 import re
+import subprocess
 import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-MAX_FILE_BYTES = 2 * 1024 * 1024
 EXCLUDED_PARTS = {".git", ".venv", "venv", "node_modules", "__pycache__"}
 BINARY_SUFFIXES = {
     ".7z", ".avi", ".bin", ".bmp", ".class", ".db", ".dll", ".docx",
@@ -29,36 +29,55 @@ PATTERNS: tuple[tuple[str, re.Pattern[str]], ...] = (
 def scan_text(text: str) -> list[tuple[str, int]]:
     findings: list[tuple[str, int]] = []
     for line_number, line in enumerate(text.splitlines(), start=1):
-        if "secret-scan: allow" in line:
-            continue
         for pattern_name, pattern_regex in PATTERNS:
             if pattern_regex.search(line):
                 findings.append((pattern_name, line_number))
     return findings
 
 
+def _git_tracked_files(root: Path) -> list[Path] | None:
+    try:
+        result = subprocess.run(
+            ["git", "-C", str(root), "ls-files", "-z"],
+            capture_output=True,
+            check=False,
+        )
+    except OSError:
+        return None
+    if result.returncode != 0:
+        return None
+    return [root / item.decode("utf-8") for item in result.stdout.split(b"\0") if item]
+
+
 def iter_scannable_files(root: Path):
-    for path in root.rglob("*"):
+    candidates = _git_tracked_files(root)
+    if candidates is None:
+        candidates = [path for path in root.rglob("*") if path.is_file()]
+    for path in candidates:
         if not path.is_file() or any(part in EXCLUDED_PARTS for part in path.parts):
             continue
         if path.suffix.lower() in BINARY_SUFFIXES:
             continue
-        try:
-            if path.stat().st_size > MAX_FILE_BYTES:
-                continue
-        except OSError:
-            continue
         yield path
+
+
+def scan_file(path: Path) -> list[tuple[str, int]]:
+    findings: list[tuple[str, int]] = []
+    try:
+        with path.open("r", encoding="utf-8", errors="ignore") as handle:
+            for line_number, line in enumerate(handle, start=1):
+                for pattern_name, pattern_regex in PATTERNS:
+                    if pattern_regex.search(line):
+                        findings.append((pattern_name, line_number))
+    except OSError:
+        return []
+    return findings
 
 
 def scan_repository(root: Path) -> list[str]:
     findings: list[str] = []
     for path in iter_scannable_files(root):
-        try:
-            text = path.read_text(encoding="utf-8")
-        except (OSError, UnicodeDecodeError):
-            continue
-        for pattern_name, line_number in scan_text(text):
+        for pattern_name, line_number in scan_file(path):
             relative = path.relative_to(root)
             findings.append(f"{relative}:{line_number}: {pattern_name}")
     return findings
