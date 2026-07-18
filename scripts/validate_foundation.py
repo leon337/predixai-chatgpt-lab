@@ -9,6 +9,8 @@ from pathlib import Path
 import yaml
 from jsonschema import Draft202012Validator
 
+from scripts.contract_semantics import ContractSemanticError, validate_runtime_state_semantics
+
 ROOT = Path(__file__).resolve().parents[1]
 
 REQUIRED_ARCHITECTURE = [
@@ -58,6 +60,10 @@ def validate_runtime_state() -> None:
     errors = sorted(Draft202012Validator(schema).iter_errors(state), key=lambda e: list(e.path))
     if errors:
         fail("runtime schema mismatch: " + "; ".join(error.message for error in errors))
+    try:
+        validate_runtime_state_semantics(state)
+    except ContractSemanticError as exc:
+        fail(f"runtime semantic mismatch: {exc}")
 
 
 def validate_architecture() -> None:
