@@ -1,0 +1,44 @@
+{
+  "id": "MSN-0007",
+  "slug": "entender-apps-plugins-conectores-e-permissoes",
+  "version": "1.0.0",
+  "status": "IN_REVIEW",
+  "title": "Entender Apps, plugins, conectores e permissões",
+  "type": "EXPLORATION",
+  "difficulty": "INTERMEDIATE",
+  "estimated_minutes": 40,
+  "xp": 170,
+  "context": "Integrações ampliam capacidades, mas também criam fronteiras de confiança, permissões e tratamento de dados.",
+  "objectives": ["Distinguir Apps, plugins e conectores", "Avaliar permissões mínimas", "Identificar fronteiras de confiança e dados"],
+  "prerequisites": ["MSN-0006 dominada"],
+  "core_concept": "Uma integração deve ser avaliada pelo que lê, escreve, executa, compartilha, registra e permite revogar.",
+  "analogy": "Conectar um serviço é entregar uma chave: a escolha segura define quais portas ela abre, por quanto tempo e como será cancelada.",
+  "execution_environment": {
+    "primary_surface": "SIMULATION",
+    "availability_status": "SIMULATION_AVAILABLE",
+    "setup": ["Selecionar três integrações conhecidas", "Não conectar conta nova durante a missão"]
+  },
+  "execution_surfaces": ["CHAT", "PROJECT", "AGENT_MODE", "OPENAI_API", "SIMULATION"],
+  "allowed_tools": ["Telas de permissões em leitura", "Documentação oficial", "Matriz de risco"],
+  "forbidden_actions": ["Autorizar permissão desnecessária", "Inserir token em prompt", "Assumir que o conector é fonte de verdade"],
+  "practical_mission": "Comparar três integrações por leitura, escrita, execução, retenção, revogação e risco, propondo uma política de menor privilégio.",
+  "steps": [
+    {"id": "STP-0701", "title": "Inventariar capacidades", "instructions": "Liste quais dados e ações cada integração pode acessar.", "saveable": true},
+    {"id": "STP-0702", "title": "Mapear permissões", "instructions": "Classifique permissões como necessárias, opcionais ou excessivas.", "saveable": true},
+    {"id": "STP-0703", "title": "Avaliar confiança", "instructions": "Registre origem, retenção, auditoria, revogação e impacto de comprometimento.", "saveable": true},
+    {"id": "STP-0704", "title": "Definir política", "instructions": "Produza uma política curta de instalação, uso, revisão e remoção.", "saveable": true}
+  ],
+  "evidence_requirements": ["Matriz privada de três integrações", "Mapa de permissões", "Política de menor privilégio"],
+  "success_criteria": ["Leitura e escrita diferenciadas", "Permissões excessivas identificadas", "Revogação e auditoria incluídas", "Nenhum segredo exposto"],
+  "assessment": {"rubric_id": "RUB-0001", "competencies": ["CMP-INT-001", "CMP-PERM-001", "CMP-TRUST-001"]},
+  "own_words_explanation": {"required": true, "prompt": "Explique por que uma integração útil ainda pode ser inadequada quando pede permissões excessivas.", "minimum_words": 120},
+  "feedback": {"success_message": "Integrações avaliadas por capacidade, dados, confiança e menor privilégio.", "remediation_message": "Revise o que a integração realmente lê e escreve, como revogar o acesso e qual seria o impacto de abuso."},
+  "next_unlock": {"on_success": "MSN-0008", "on_remediation": "MSN-0007"},
+  "security": {
+    "evidence_classification": "PRIVATE",
+    "restrictions": ["Não instalar ou conectar serviço", "Não registrar tokens ou dados de conta"],
+    "human_approval_required": true,
+    "secrets_allowed": false,
+    "personal_data_allowed": false
+  }
+}
