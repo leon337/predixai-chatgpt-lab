@@ -39,10 +39,13 @@ def validate_prompt_semantics(instance: dict[str, Any]) -> None:
     _require(len(set(test_variations)) == len(test_variations), "test case variation_id values must be unique")
     _require(len(set(execution_variations)) >= 3, "VALIDATED prompt requires at least three distinct execution variations")
     _require(set(execution_variations).issubset(set(test_variations)), "execution variation_id must reference a test case")
+    test_input_by_variation = {item["variation_id"]: item["input_variant"] for item in test_cases}
+    executed_inputs = [test_input_by_variation[variation_id] for variation_id in execution_variations]
+    _require(len(set(executed_inputs)) >= 3, "VALIDATED prompt requires at least three distinct input variants")
     _require(all(item["result"] == "PASS" for item in executions), "all controlled prompt executions must pass")
     summary = instance["validation_summary"]
     _require(summary["controlled_execution_count"] == len(executions), "prompt execution count summary mismatch")
-    _require(summary["distinct_input_variations"] == len(set(execution_variations)), "prompt variation count summary mismatch")
+    _require(summary["distinct_input_variations"] == len(set(executed_inputs)), "prompt input variation count summary mismatch")
     _require(summary["all_executions_passed"] is True, "prompt summary must record all executions passed")
 
 
@@ -53,9 +56,13 @@ def validate_skill_semantics(instance: dict[str, Any]) -> None:
     executions = instance.get("controlled_executions", [])
     test_variations = [item["variation_id"] for item in tests]
     execution_variations = [item["variation_id"] for item in executions]
+    _require(len(set(test_variations)) == len(test_variations), "skill test variation_id values must be unique")
     _require(len(set(test_variations)) >= 3, "STABLE skill requires at least three distinct test variations")
     _require(len(set(execution_variations)) >= 3, "STABLE skill requires at least three distinct controlled execution variations")
     _require(set(execution_variations).issubset(set(test_variations)), "skill execution variation_id must reference a declared test")
+    test_input_by_variation = {item["variation_id"]: item["input_variant"] for item in tests}
+    executed_inputs = [test_input_by_variation[variation_id] for variation_id in execution_variations]
+    _require(len(set(executed_inputs)) >= 3, "STABLE skill requires at least three distinct controlled input variants")
     _require(all(item["result"] == "PASS" for item in executions), "all controlled skill executions must pass")
 
     supported = set(instance.get("supported_surfaces", []))
@@ -66,7 +73,7 @@ def validate_skill_semantics(instance: dict[str, Any]) -> None:
 
     summary = instance["validation_summary"]
     _require(summary["controlled_execution_count"] == len(executions), "skill execution count summary mismatch")
-    _require(summary["distinct_input_variations"] == len(set(execution_variations)), "skill variation count summary mismatch")
+    _require(summary["distinct_input_variations"] == len(set(executed_inputs)), "skill input variation count summary mismatch")
     _require(summary["all_declared_surfaces_validated"] is True, "skill summary must confirm all surfaces")
     _require(summary["limitations_documented"] is True, "skill limitations must be documented")
 
