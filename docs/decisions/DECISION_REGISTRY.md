@@ -12,8 +12,13 @@
 | DEC-0008 | Evidências e privacidade | APPROVED | 1.0.0 |
 | DEC-0009 | Arquitetura de prompts | APPROVED | 1.0.0 |
 | DEC-0010 | Arquitetura de Skills | APPROVED | 1.0.0 |
-| DEC-0011 | Governança GitHub + Linear | APPROVED_PROVISIONAL | 0.9.0 |
-| DEC-0012 | Piloto V0.1 | APPROVED | 1.0.0 |
+| DEC-0011 | Governança GitHub + Linear | APPROVED | 1.0.0 |
+| DEC-0012 | Piloto V0.1 | APPROVED | 1.1.0 |
+
+## Histórico de revisões
+
+- `DEC-0011 0.9.0 → 1.0.0`: ratificação após cinco ciclos independentes, 23 achados remediados e merge confirmado da baseline;
+- `DEC-0012 1.0.0 → 1.1.0`: refinamento dos critérios de evidência, domínio pós-remediação e retenção antes do início do piloto.
 
 ## Regra
 
