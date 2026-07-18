@@ -1,0 +1,107 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://predixai.example/schemas/missions/mission.schema.json",
+  "title": "Mission contract",
+  "type": "object",
+  "required": [
+    "id", "slug", "version", "status", "title", "type", "difficulty", "estimated_minutes", "xp",
+    "context", "objectives", "prerequisites", "core_concept", "analogy", "execution_environment",
+    "execution_surfaces", "allowed_tools", "forbidden_actions", "practical_mission", "steps",
+    "evidence_requirements", "success_criteria", "assessment", "own_words_explanation", "feedback",
+    "next_unlock", "security"
+  ],
+  "properties": {
+    "id": {"type": "string", "pattern": "^MSN-[0-9]{4}$"},
+    "slug": {"type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"},
+    "version": {"type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"},
+    "status": {"enum": ["DRAFT", "IN_REVIEW", "PUBLISHED", "DEPRECATED", "ARCHIVED"]},
+    "title": {"type": "string", "minLength": 3},
+    "type": {"enum": ["TUTORIAL", "EXPLORATION", "LAB", "INTEGRATION", "REMEDIATION", "REVIEW", "BOSS"]},
+    "difficulty": {"enum": ["BEGINNER", "INTERMEDIATE", "ADVANCED"]},
+    "estimated_minutes": {"type": "integer", "minimum": 5},
+    "xp": {"type": "integer", "minimum": 0},
+    "context": {"type": "string", "minLength": 1},
+    "objectives": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
+    "prerequisites": {"type": "array", "items": {"type": "string", "minLength": 1}},
+    "core_concept": {"type": "string", "minLength": 1},
+    "analogy": {"type": "string", "minLength": 1},
+    "execution_environment": {
+      "type": "object",
+      "required": ["primary_surface", "availability_status", "setup"],
+      "properties": {
+        "primary_surface": {"enum": ["CHAT", "STUDY_MODE", "PROJECT", "DEEP_RESEARCH", "AGENT_MODE", "WORK", "CODEX", "GITHUB", "OPENAI_API", "SIMULATION"]},
+        "availability_status": {"enum": ["PRACTICAL_AVAILABLE", "DOCUMENTARY_ONLY", "SIMULATION_AVAILABLE", "BLOCKED_BY_PLAN", "BLOCKED_BY_DEVICE", "BLOCKED_BY_ROLLOUT", "DEPRECATED"]},
+        "setup": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}}
+      },
+      "additionalProperties": false
+    },
+    "execution_surfaces": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {"enum": ["CHAT", "STUDY_MODE", "PROJECT", "DEEP_RESEARCH", "AGENT_MODE", "WORK", "CODEX", "GITHUB", "OPENAI_API", "SIMULATION"]}
+    },
+    "allowed_tools": {"type": "array", "items": {"type": "string", "minLength": 1}},
+    "forbidden_actions": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
+    "practical_mission": {"type": "string", "minLength": 1},
+    "steps": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["id", "title", "instructions", "saveable"],
+        "properties": {
+          "id": {"type": "string", "pattern": "^STP-[0-9]{4,6}$"},
+          "title": {"type": "string", "minLength": 1},
+          "instructions": {"type": "string", "minLength": 1},
+          "saveable": {"type": "boolean"}
+        },
+        "additionalProperties": false
+      }
+    },
+    "evidence_requirements": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
+    "success_criteria": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
+    "assessment": {"type": "object", "minProperties": 1},
+    "own_words_explanation": {
+      "type": "object",
+      "required": ["required", "prompt", "minimum_words"],
+      "properties": {
+        "required": {"const": true},
+        "prompt": {"type": "string", "minLength": 1},
+        "minimum_words": {"type": "integer", "minimum": 1}
+      },
+      "additionalProperties": false
+    },
+    "feedback": {
+      "type": "object",
+      "required": ["success_message", "remediation_message"],
+      "properties": {
+        "success_message": {"type": "string", "minLength": 1},
+        "remediation_message": {"type": "string", "minLength": 1}
+      },
+      "additionalProperties": false
+    },
+    "next_unlock": {
+      "type": "object",
+      "required": ["on_success", "on_remediation"],
+      "properties": {
+        "on_success": {"type": ["string", "null"]},
+        "on_remediation": {"type": ["string", "null"]}
+      },
+      "additionalProperties": false
+    },
+    "security": {
+      "type": "object",
+      "required": ["evidence_classification", "restrictions", "human_approval_required", "secrets_allowed", "personal_data_allowed"],
+      "properties": {
+        "evidence_classification": {"enum": ["PUBLIC", "INTERNAL", "PRIVATE", "SENSITIVE"]},
+        "restrictions": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
+        "human_approval_required": {"type": "boolean"},
+        "secrets_allowed": {"const": false},
+        "personal_data_allowed": {"type": "boolean"}
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

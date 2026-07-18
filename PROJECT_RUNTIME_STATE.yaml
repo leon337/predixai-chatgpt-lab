@@ -1,0 +1,75 @@
+schema_version: "0.1.0"
+state_revision: 3
+project: "PredixAI ChatGPT Lab / PredixAI Quest"
+repository: "leon337/predixai-chatgpt-lab"
+main_branch: "main"
+
+active_phase: "FOUNDATION_ARCHITECTURE"
+active_delivery: "FND-001_BASELINE_DEC_0001_TO_DEC_0012"
+active_linear_project: "0052540b-2077-4773-a853-7d310d9e79fe"
+active_linear_issue: "LEA-22"
+active_review_issue: "LEA-23"
+active_pull_request: 1
+working_branch: "foundation/DEC-0001-0012-baseline-v0.1"
+
+transition_id: "FOUNDATION-T01"
+transition_status: "IN_PROGRESS"
+baseline_main_sha: "e4e4ee811e332e68a6b0c6b1fe823d994da83fe3"
+observed_pr_head: "a7ee8cf6a204ad64a82613e24ee9066178dd97cf"
+observed_pr_head_semantics: "INFORMATIONAL_PARENT_SNAPSHOT_NOT_CURRENT_ASSERTION"
+reviewed_head_sha: "7fc45e5e8a851483e63e31a3f78e2340499114a2"
+review_status: "STALE_AFTER_FOURTH_REMEDIATION_FIFTH_RETEST_REQUIRED"
+
+current_gate: "INDEPENDENT_CRITICAL_RETEST_5"
+gate_status: "IN_PROGRESS"
+next_action: "RUN_CI_ON_STATE_COMMIT_THEN_REQUEST_CODEX_FIFTH_RETEST"
+blockers:
+  - "INDEPENDENT_CRITICAL_RETEST_5_REQUIRED"
+  - "DEC_0011_FINAL_RETEST_PENDING"
+
+remediation:
+  review_cycle_1:
+    reviewed_head: "c9b334bc4743f1e0297f0008ef7e38653c747783"
+    p1_findings: 6
+    p2_findings: 3
+    findings_remediated: 9
+  review_cycle_2:
+    reviewed_head: "aa3e3ae2b4c4c7a2807844e2356bd56d771b5317"
+    p1_findings: 7
+    p2_findings: 3
+    findings_remediated: 10
+  review_cycle_3:
+    reviewed_head: "e5d3214a30334fab279bb54b2556d38242169764"
+    p1_findings: 1
+    p2_findings: 2
+    findings_remediated: 3
+  review_cycle_4:
+    reviewed_head: "7fc45e5e8a851483e63e31a3f78e2340499114a2"
+    p1_findings: 1
+    p2_findings: 0
+    findings_remediated: 1
+  structural_validation: "PASS"
+  runtime_semantic_validation: "PASS"
+  contract_semantic_validation: "PASS"
+  secret_scan: "PASS"
+  adversarial_tests: "PASS"
+  latest_validated_contract_head: "a7ee8cf6a204ad64a82613e24ee9066178dd97cf"
+
+authorizations:
+  implementation: true
+  code_change: true
+  database_design: true
+  migration_execution: false
+  merge: false
+  production_integration: false
+  irreversible_automation: false
+
+sync:
+  github: "PASS"
+  linear: "PASS"
+
+safety:
+  public_secrets_allowed: false
+  personal_evidence_in_public_repo: false
+  production_actions_allowed: false
+  automatic_advance: false

@@ -1,0 +1,128 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://predixai.example/schemas/skills/skill.schema.json",
+  "title": "Versioned Skill contract",
+  "type": "object",
+  "required": [
+    "id", "slug", "version", "status", "purpose", "activation", "inputs", "outputs",
+    "supported_surfaces", "required_tools", "permissions", "dependencies", "tests",
+    "controlled_executions", "examples", "resources", "limitations", "security",
+    "surface_validations", "validation_summary", "changelog"
+  ],
+  "properties": {
+    "id": {"type": "string", "pattern": "^SKL-[0-9]{4}$"},
+    "slug": {"type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"},
+    "version": {"type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"},
+    "status": {"enum": ["EXPERIMENTAL", "PILOT", "VALIDATED", "STABLE", "DEPRECATED", "ARCHIVED"]},
+    "purpose": {"type": "string", "minLength": 1},
+    "activation": {"type": "string", "minLength": 1},
+    "inputs": {"type": "object"},
+    "outputs": {"type": "object"},
+    "supported_surfaces": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+    "required_tools": {"type": "array", "items": {"type": "string", "minLength": 1}},
+    "permissions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["capability", "level", "human_approval_required"],
+        "properties": {
+          "capability": {"type": "string", "minLength": 1},
+          "level": {"enum": ["READ", "WRITE_REVERSIBLE", "WRITE_IRREVERSIBLE", "EXTERNAL_EFFECT"]},
+          "human_approval_required": {"type": "boolean"}
+        },
+        "additionalProperties": false
+      }
+    },
+    "dependencies": {"type": "array", "items": {"type": "string", "minLength": 1}},
+    "tests": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["test_id", "variation_id", "input_variant", "result"],
+        "properties": {
+          "test_id": {"type": "string", "minLength": 1},
+          "variation_id": {"type": "string", "minLength": 1},
+          "input_variant": {"type": "string", "minLength": 1},
+          "result": {"enum": ["PASS", "FAIL", "BLOCKED"]}
+        },
+        "additionalProperties": false
+      }
+    },
+    "controlled_executions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["run_id", "variation_id", "surface", "result", "executed_at"],
+        "properties": {
+          "run_id": {"type": "string", "minLength": 1},
+          "variation_id": {"type": "string", "minLength": 1},
+          "surface": {"type": "string", "minLength": 1},
+          "result": {"enum": ["PASS", "FAIL", "BLOCKED"]},
+          "executed_at": {"type": "string", "format": "date-time"}
+        },
+        "additionalProperties": false
+      }
+    },
+    "examples": {"type": "array", "minItems": 1, "items": {"type": "object"}},
+    "resources": {"type": "array", "items": {"type": "string", "minLength": 1}},
+    "limitations": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
+    "security": {
+      "type": "object",
+      "required": ["review_status", "reviewer", "reviewed_at"],
+      "properties": {
+        "review_status": {"enum": ["NOT_REVIEWED", "PASS", "FAIL"]},
+        "reviewer": {"type": ["string", "null"]},
+        "reviewed_at": {"type": ["string", "null"], "format": "date-time"}
+      },
+      "additionalProperties": false
+    },
+    "surface_validations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["surface", "adapter_version", "result", "validated_at"],
+        "properties": {
+          "surface": {"type": "string", "minLength": 1},
+          "adapter_version": {"type": "string", "minLength": 1},
+          "result": {"enum": ["PASS", "FAIL", "BLOCKED", "NOT_TESTED"]},
+          "validated_at": {"type": ["string", "null"], "format": "date-time"}
+        },
+        "additionalProperties": false
+      }
+    },
+    "validation_summary": {
+      "type": "object",
+      "required": ["controlled_execution_count", "distinct_input_variations", "all_declared_surfaces_validated", "limitations_documented"],
+      "properties": {
+        "controlled_execution_count": {"type": "integer", "minimum": 0},
+        "distinct_input_variations": {"type": "integer", "minimum": 0},
+        "all_declared_surfaces_validated": {"type": "boolean"},
+        "limitations_documented": {"type": "boolean"}
+      },
+      "additionalProperties": false
+    },
+    "changelog": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}}
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"status": {"const": "STABLE"}}, "required": ["status"]},
+      "then": {
+        "properties": {
+          "tests": {"minItems": 3, "items": {"properties": {"result": {"const": "PASS"}}}},
+          "controlled_executions": {"minItems": 3, "items": {"properties": {"result": {"const": "PASS"}}}},
+          "surface_validations": {"minItems": 1, "items": {"properties": {"result": {"const": "PASS"}, "validated_at": {"type": "string", "format": "date-time"}}}},
+          "security": {"properties": {"review_status": {"const": "PASS"}, "reviewer": {"type": "string", "minLength": 1}, "reviewed_at": {"type": "string", "format": "date-time"}}},
+          "validation_summary": {"properties": {"controlled_execution_count": {"minimum": 3}, "distinct_input_variations": {"minimum": 3}, "all_declared_surfaces_validated": {"const": true}, "limitations_documented": {"const": true}}}
+        }
+      }
+    }
+  ],
+  "additionalProperties": false,
+  "x-semantic-validator": "scripts/contract_semantics.py#validate_skill_semantics",
+  "x-semantic-invariants": [
+    "STABLE skills have at least three distinct controlled execution variations",
+    "every supported surface has exactly one PASS validation",
+    "validation_summary is derived from controlled evidence"
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://predixai.example/schemas/curriculum/curriculum.schema.json",
+  "title": "Curriculum hierarchy",
+  "type": "object",
+  "required": ["track", "campaigns"],
+  "properties": {
+    "track": {"$ref": "../common/stable-entity.schema.json"},
+    "campaigns": {
+      "type": "array",
+      "items": {
+        "allOf": [
+          {"$ref": "../common/stable-entity.schema.json"},
+          {"type": "object", "required": ["worlds"], "properties": {"worlds": {"type": "array"}}}
+        ]
+      }
+    }
+  }
+}
