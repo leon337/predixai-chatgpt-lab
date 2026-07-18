@@ -4,26 +4,10 @@
   "title": "Versioned Skill contract",
   "type": "object",
   "required": [
-    "id",
-    "slug",
-    "version",
-    "status",
-    "purpose",
-    "activation",
-    "inputs",
-    "outputs",
-    "supported_surfaces",
-    "required_tools",
-    "permissions",
-    "dependencies",
-    "tests",
-    "examples",
-    "resources",
-    "limitations",
-    "security",
-    "surface_validations",
-    "validation_summary",
-    "changelog"
+    "id", "slug", "version", "status", "purpose", "activation", "inputs", "outputs",
+    "supported_surfaces", "required_tools", "permissions", "dependencies", "tests",
+    "controlled_executions", "examples", "resources", "limitations", "security",
+    "surface_validations", "validation_summary", "changelog"
   ],
   "properties": {
     "id": {"type": "string", "pattern": "^SKL-[0-9]{4}$"},
@@ -55,11 +39,27 @@
       "minItems": 1,
       "items": {
         "type": "object",
-        "required": ["test_id", "input_variant", "result"],
+        "required": ["test_id", "variation_id", "input_variant", "result"],
         "properties": {
           "test_id": {"type": "string", "minLength": 1},
+          "variation_id": {"type": "string", "minLength": 1},
           "input_variant": {"type": "string", "minLength": 1},
           "result": {"enum": ["PASS", "FAIL", "BLOCKED"]}
+        },
+        "additionalProperties": false
+      }
+    },
+    "controlled_executions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["run_id", "variation_id", "surface", "result", "executed_at"],
+        "properties": {
+          "run_id": {"type": "string", "minLength": 1},
+          "variation_id": {"type": "string", "minLength": 1},
+          "surface": {"type": "string", "minLength": 1},
+          "result": {"enum": ["PASS", "FAIL", "BLOCKED"]},
+          "executed_at": {"type": "string", "format": "date-time"}
         },
         "additionalProperties": false
       }
@@ -93,10 +93,10 @@
     },
     "validation_summary": {
       "type": "object",
-      "required": ["controlled_execution_count", "diverse_inputs", "all_declared_surfaces_validated", "limitations_documented"],
+      "required": ["controlled_execution_count", "distinct_input_variations", "all_declared_surfaces_validated", "limitations_documented"],
       "properties": {
         "controlled_execution_count": {"type": "integer", "minimum": 0},
-        "diverse_inputs": {"type": "boolean"},
+        "distinct_input_variations": {"type": "integer", "minimum": 0},
         "all_declared_surfaces_validated": {"type": "boolean"},
         "limitations_documented": {"type": "boolean"}
       },
@@ -109,13 +109,20 @@
       "if": {"properties": {"status": {"const": "STABLE"}}, "required": ["status"]},
       "then": {
         "properties": {
-          "tests": {"minItems": 3, "uniqueItems": true, "items": {"properties": {"result": {"const": "PASS"}}}},
-          "surface_validations": {"minItems": 1, "uniqueItems": true, "items": {"properties": {"result": {"const": "PASS"}, "validated_at": {"type": "string", "format": "date-time"}}}},
+          "tests": {"minItems": 3, "items": {"properties": {"result": {"const": "PASS"}}}},
+          "controlled_executions": {"minItems": 3, "items": {"properties": {"result": {"const": "PASS"}}}},
+          "surface_validations": {"minItems": 1, "items": {"properties": {"result": {"const": "PASS"}, "validated_at": {"type": "string", "format": "date-time"}}}},
           "security": {"properties": {"review_status": {"const": "PASS"}, "reviewer": {"type": "string", "minLength": 1}, "reviewed_at": {"type": "string", "format": "date-time"}}},
-          "validation_summary": {"properties": {"controlled_execution_count": {"minimum": 3}, "diverse_inputs": {"const": true}, "all_declared_surfaces_validated": {"const": true}, "limitations_documented": {"const": true}}}
+          "validation_summary": {"properties": {"controlled_execution_count": {"minimum": 3}, "distinct_input_variations": {"minimum": 3}, "all_declared_surfaces_validated": {"const": true}, "limitations_documented": {"const": true}}}
         }
       }
     }
   ],
-  "additionalProperties": false
+  "additionalProperties": false,
+  "x-semantic-validator": "scripts/contract_semantics.py#validate_skill_semantics",
+  "x-semantic-invariants": [
+    "STABLE skills have at least three distinct controlled execution variations",
+    "every supported surface has exactly one PASS validation",
+    "validation_summary is derived from controlled evidence"
+  ]
 }
