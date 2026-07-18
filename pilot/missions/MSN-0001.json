@@ -1,0 +1,43 @@
+{
+  "id": "MSN-0001",
+  "slug": "mapear-o-ecossistema-chatgpt",
+  "version": "1.0.0",
+  "status": "IN_REVIEW",
+  "title": "Mapear o ecossistema ChatGPT",
+  "type": "EXPLORATION",
+  "difficulty": "BEGINNER",
+  "estimated_minutes": 25,
+  "xp": 100,
+  "context": "Antes de escolher uma ferramenta, o aluno precisa reconhecer as superfícies do ecossistema e seus limites.",
+  "objectives": ["Identificar as principais superfícies", "Relacionar tarefas a superfícies adequadas", "Reconhecer limitações de disponibilidade"],
+  "prerequisites": ["Acesso ao ChatGPT", "Conta GitHub para consulta documental"],
+  "core_concept": "Cada superfície combina contexto, ferramentas, permissões e persistência de maneira diferente.",
+  "analogy": "Uma oficina possui bancadas distintas: a ferramenta correta depende do trabalho, do risco e do material disponível.",
+  "execution_environment": {
+    "primary_surface": "CHAT",
+    "availability_status": "PRACTICAL_AVAILABLE",
+    "setup": ["Abrir o ChatGPT", "Manter dados pessoais e credenciais fora da atividade"]
+  },
+  "execution_surfaces": ["CHAT", "STUDY_MODE", "PROJECT", "DEEP_RESEARCH", "AGENT_MODE", "WORK", "CODEX", "GITHUB", "OPENAI_API", "SIMULATION"],
+  "allowed_tools": ["ChatGPT", "GitHub em modo de leitura", "Documentação oficial"],
+  "forbidden_actions": ["Inventar disponibilidade de recurso", "Publicar credenciais", "Executar ação irreversível"],
+  "practical_mission": "Classificar dez tarefas propostas pela missão, escolhendo a superfície mais apropriada e justificando cada escolha.",
+  "steps": [
+    {"id": "STP-0101", "title": "Inventariar", "instructions": "Liste as superfícies conhecidas e descreva em uma frase a função principal de cada uma.", "saveable": true},
+    {"id": "STP-0102", "title": "Classificar tarefas", "instructions": "Associe cada tarefa fornecida a uma superfície principal e a uma alternativa.", "saveable": true},
+    {"id": "STP-0103", "title": "Justificar", "instructions": "Explique as escolhas considerando contexto, ferramentas, permissões e persistência.", "saveable": true}
+  ],
+  "evidence_requirements": ["Tabela privada com tarefas, superfície principal, alternativa e justificativa", "Explicação própria sobre duas escolhas difíceis"],
+  "success_criteria": ["Todas as dez tarefas classificadas", "Nenhuma capacidade inventada", "Justificativas mencionam pelo menos dois critérios técnicos"],
+  "assessment": {"rubric_id": "RUB-0001", "competencies": ["CMP-ECO-001", "CMP-TOOL-001"]},
+  "own_words_explanation": {"required": true, "prompt": "Explique por que conhecer a superfície é diferente de apenas conhecer o nome da ferramenta.", "minimum_words": 60},
+  "feedback": {"success_message": "Mapa do ecossistema construído com critérios técnicos.", "remediation_message": "Revise as diferenças entre contexto, ferramenta, permissão e persistência e refaça as classificações inconsistentes."},
+  "next_unlock": {"on_success": "MSN-0002", "on_remediation": "MSN-0001"},
+  "security": {
+    "evidence_classification": "PRIVATE",
+    "restrictions": ["Usar apenas exemplos fictícios", "Não incluir dados de conta ou tokens"],
+    "human_approval_required": false,
+    "secrets_allowed": false,
+    "personal_data_allowed": false
+  }
+}
