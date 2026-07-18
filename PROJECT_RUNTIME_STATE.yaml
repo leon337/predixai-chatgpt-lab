@@ -15,26 +15,34 @@ working_branch: "foundation/DEC-0001-0012-baseline-v0.1"
 transition_id: "FOUNDATION-T01"
 transition_status: "IN_PROGRESS"
 baseline_main_sha: "e4e4ee811e332e68a6b0c6b1fe823d994da83fe3"
-observed_pr_head: "c9a546c780621d192e77ececed963eb65c1931f3"
+observed_pr_head: "c738c4b324bf619b43c0c2e71c103267c2566013"
 observed_pr_head_semantics: "INFORMATIONAL_PARENT_SNAPSHOT_NOT_CURRENT_ASSERTION"
-reviewed_head_sha: "c9b334bc4743f1e0297f0008ef7e38653c747783"
-review_status: "STALE_AFTER_REMEDIATION_RETEST_REQUIRED"
+reviewed_head_sha: "aa3e3ae2b4c4c7a2807844e2356bd56d771b5317"
+review_status: "STALE_AFTER_SECOND_REMEDIATION_THIRD_RETEST_REQUIRED"
 
-current_gate: "INDEPENDENT_CRITICAL_RETEST"
+current_gate: "INDEPENDENT_CRITICAL_RETEST_3"
 gate_status: "IN_PROGRESS"
-next_action: "RUN_CI_ON_STATE_COMMIT_THEN_REQUEST_CODEX_RETEST"
+next_action: "RUN_CI_ON_STATE_COMMIT_THEN_REQUEST_CODEX_THIRD_RETEST"
 blockers:
-  - "INDEPENDENT_CRITICAL_RETEST_REQUIRED"
+  - "INDEPENDENT_CRITICAL_RETEST_3_REQUIRED"
   - "DEC_0011_FINAL_RETEST_PENDING"
 
 remediation:
-  source_review_head: "c9b334bc4743f1e0297f0008ef7e38653c747783"
-  p1_findings: 6
-  p2_findings: 3
-  findings_remediated: 9
-  automated_validation_on_parent_head: "PASS"
+  review_cycle_1:
+    reviewed_head: "c9b334bc4743f1e0297f0008ef7e38653c747783"
+    p1_findings: 6
+    p2_findings: 3
+    findings_remediated: 9
+  review_cycle_2:
+    reviewed_head: "aa3e3ae2b4c4c7a2807844e2356bd56d771b5317"
+    p1_findings: 7
+    p2_findings: 3
+    findings_remediated: 10
+  structural_validation: "PASS"
+  semantic_validation: "PASS"
   secret_scan: "PASS"
   negative_contract_tests: "PASS"
+  latest_validated_contract_head: "dbd843078307b8db9748b7fe777956bfa062b6a9"
 
 authorizations:
   implementation: true
