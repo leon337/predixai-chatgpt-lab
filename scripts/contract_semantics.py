@@ -58,6 +58,7 @@ def validate_skill_semantics(instance: dict[str, Any]) -> None:
     execution_variations = [item["variation_id"] for item in executions]
     _require(len(set(test_variations)) == len(test_variations), "skill test variation_id values must be unique")
     _require(len(set(test_variations)) >= 3, "STABLE skill requires at least three distinct test variations")
+    _require(len(set(execution_variations)) == len(execution_variations), "skill controlled execution variation_id values must be unique")
     _require(len(set(execution_variations)) >= 3, "STABLE skill requires at least three distinct controlled execution variations")
     _require(set(execution_variations).issubset(set(test_variations)), "skill execution variation_id must reference a declared test")
     test_input_by_variation = {item["variation_id"]: item["input_variant"] for item in tests}
