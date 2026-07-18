@@ -57,4 +57,23 @@ payload: object
 - `SkillPromoted` exige validações por superfície;
 - `TransitionCompleted` exige sincronização idempotente.
 
+## Validação em duas camadas
+
+JSON Schema governa forma, tipos, enums, campos obrigatórios e condicionais estruturais. Invariantes que dependem da comparação entre coleções ou de cálculos derivados são obrigatoriamente validados por `scripts/contract_semantics.py`.
+
+| Contrato | Invariante semântico executável |
+|---|---|
+| Assessment | pesos somam 1 e `total_score` corresponde à soma ponderada |
+| Prompt `VALIDATED` | existem pelo menos três `variation_id` distintos e o resumo corresponde às execuções |
+| Skill `STABLE` | existem três execuções variadas e todas as superfícies declaradas possuem validação `PASS` |
+| Transition `COMPLETE` | `reviewed_head_sha` é exatamente igual ao `observed_pr_head` |
+
+Uma instância somente é válida quando passa pelas duas camadas:
+
+```text
+CONTRACT_VALID = SCHEMA_PASS AND SEMANTIC_PASS
+```
+
+Campos de resumo são projeções derivadas, nunca autoridades independentes. Um consumidor não pode conceder domínio, XP, promoção, publicação ou conclusão de transição usando somente declarações autorreferentes do payload.
+
 Operações multi-domínio usam outbox transacional quando houver banco de produção. No ledger do piloto, a mesma transação SQLite registra estado e evento.
