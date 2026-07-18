@@ -1,5 +1,5 @@
 schema_version: "0.1.0"
-state_revision: 5
+state_revision: 6
 project: "PredixAI ChatGPT Lab / PredixAI Quest"
 repository: "leon337/predixai-chatgpt-lab"
 main_branch: "main"
@@ -9,20 +9,20 @@ active_delivery: "PIL-001_CONTRATOS_E_EXECUCAO_DAS_10_MISSOES"
 active_linear_project: "0052540b-2077-4773-a853-7d310d9e79fe"
 active_linear_issue: "LEA-24"
 active_review_issue: "LEA-28"
-active_pull_request: null
+active_pull_request: 2
 working_branch: "pilot/LEA-24-v0.1"
 
 transition_id: "PILOT-T01"
 transition_status: "IN_PROGRESS"
 baseline_main_sha: "5ea1defc1c7c66be4bc86427c72e4631e491c1f0"
-observed_pr_head: null
-observed_pr_head_semantics: "NO_PR_OPENED_YET"
+observed_pr_head: "8396961eed40274ab6635591b2eaf75620244c7e"
+observed_pr_head_semantics: "INFORMATIONAL_PARENT_SNAPSHOT_BEFORE_STATE_COMMIT"
 reviewed_head_sha: null
 review_status: "NOT_STARTED"
 
-current_gate: "PILOT_CONTRACT_AUTHORING_AND_VALIDATION"
+current_gate: "PILOT_FINAL_CI_BEFORE_INDEPENDENT_REVIEW"
 gate_status: "IN_PROGRESS"
-next_action: "RUN_CI_OPEN_DRAFT_PR_AND_START_LEA_28_REVIEW_ON_EXACT_HEAD"
+next_action: "RUN_CI_ON_STATE_COMMIT_THEN_START_LEA_28_REVIEW_ON_EXACT_HEAD"
 blockers:
   - "INDEPENDENT_REVIEW_REQUIRED_BEFORE_MSN_0001"
   - "PILOT_EXECUTION_NOT_AUTHORIZED_BEFORE_CONTRACT_PASS"
@@ -41,7 +41,10 @@ remediation:
     learner_count: 1
   contract_status:
     authored: 10
-    automated_validation: "PENDING"
+    initial_validated_head: "7563f5b917a7a7e541ea860c5eb36df4dd428662"
+    initial_ci_run: 83
+    initial_automated_validation: "PASS"
+    final_automated_validation: "PENDING"
     independent_review: "NOT_STARTED"
     execution_started: false
 
