@@ -1,0 +1,43 @@
+{
+  "id": "MSN-0002",
+  "slug": "diferenciar-chat-contexto-memoria-e-projects",
+  "version": "1.0.0",
+  "status": "IN_REVIEW",
+  "title": "Diferenciar chat, contexto, memória e Projects",
+  "type": "TUTORIAL",
+  "difficulty": "BEGINNER",
+  "estimated_minutes": 30,
+  "xp": 110,
+  "context": "Confundir histórico, contexto ativo, memória do usuário e arquivos de Project gera expectativas incorretas e perda de continuidade.",
+  "objectives": ["Distinguir contexto da conversa e memória", "Explicar o papel de Projects", "Definir quando externalizar conhecimento"],
+  "prerequisites": ["MSN-0001 dominada ou em remediação concluída"],
+  "core_concept": "Continuidade confiável exige separar contexto temporário, memória personalizada e fonte documental versionada.",
+  "analogy": "O chat é a mesa de trabalho, o contexto são os papéis abertos, a memória é um caderno de preferências e o Project é a pasta organizada do trabalho.",
+  "execution_environment": {
+    "primary_surface": "PROJECT",
+    "availability_status": "PRACTICAL_AVAILABLE",
+    "setup": ["Abrir este Project", "Consultar somente arquivos autorizados do projeto"]
+  },
+  "execution_surfaces": ["CHAT", "PROJECT", "GITHUB"],
+  "allowed_tools": ["ChatGPT", "Project", "GitHub em leitura"],
+  "forbidden_actions": ["Assumir que todo histórico é carregado automaticamente", "Tratar memória como banco de dados", "Salvar segredo em instruções do projeto"],
+  "practical_mission": "Analisar seis cenários de continuidade e escolher entre manter no chat, registrar em Project, versionar no GitHub ou armazenar privadamente.",
+  "steps": [
+    {"id": "STP-0201", "title": "Definir conceitos", "instructions": "Escreva uma definição operacional para chat, contexto, memória, Project e fonte de verdade.", "saveable": true},
+    {"id": "STP-0202", "title": "Resolver cenários", "instructions": "Classifique seis informações por local correto de persistência.", "saveable": true},
+    {"id": "STP-0203", "title": "Criar protocolo", "instructions": "Produza um protocolo curto de encerramento e retomada de trabalho.", "saveable": true}
+  ],
+  "evidence_requirements": ["Quadro comparativo privado", "Protocolo de retomada com fontes mínimas"],
+  "success_criteria": ["Cinco conceitos diferenciados sem sobreposição", "Seis cenários classificados", "Protocolo não depende da memória informal do chat"],
+  "assessment": {"rubric_id": "RUB-0001", "competencies": ["CMP-CTX-001", "CMP-GOV-001"]},
+  "own_words_explanation": {"required": true, "prompt": "Explique por que um projeto importante não pode depender apenas da lembrança do assistente.", "minimum_words": 80},
+  "feedback": {"success_message": "Modelo de continuidade separado por autoridade e persistência.", "remediation_message": "Revise o que é temporário, personalizado, documental e privado e reclassifique os cenários."},
+  "next_unlock": {"on_success": "MSN-0003", "on_remediation": "MSN-0002"},
+  "security": {
+    "evidence_classification": "PRIVATE",
+    "restrictions": ["Não copiar conversas pessoais", "Não usar memória para guardar credenciais"],
+    "human_approval_required": false,
+    "secrets_allowed": false,
+    "personal_data_allowed": false
+  }
+}
