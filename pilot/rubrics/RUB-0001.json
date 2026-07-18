@@ -1,0 +1,34 @@
+{
+  "id": "RUB-0001",
+  "slug": "rubrica-mestria-adaptativa",
+  "version": "1.0.0",
+  "status": "PILOT",
+  "title": "Rubrica de domínio do piloto V0.1",
+  "criteria": [
+    {"id": "CRI-0001", "name": "compreensao", "weight": 0.20, "maximum_score": 100},
+    {"id": "CRI-0002", "name": "execucao_pratica", "weight": 0.30, "maximum_score": 100},
+    {"id": "CRI-0003", "name": "qualidade", "weight": 0.20, "maximum_score": 100},
+    {"id": "CRI-0004", "name": "evidencia", "weight": 0.15, "maximum_score": 100},
+    {"id": "CRI-0005", "name": "explicacao_propria", "weight": 0.10, "maximum_score": 100},
+    {"id": "CRI-0006", "name": "seguranca", "weight": 0.05, "maximum_score": 100}
+  ],
+  "eliminatory_checks": [
+    "valid_evidence",
+    "own_explanation",
+    "security_compliant",
+    "not_fabricated"
+  ],
+  "bands": [
+    {"minimum": 0, "maximum": 59, "result": "NOT_COMPLETED"},
+    {"minimum": 60, "maximum": 79, "result": "COMPLETED_WITH_REMEDIATION"},
+    {"minimum": 80, "maximum": 89, "result": "MASTERED"},
+    {"minimum": 90, "maximum": 100, "result": "MASTERED_EXCELLENCE"}
+  ],
+  "rules": {
+    "mastery_minimum": 80,
+    "boss_minimum": 80,
+    "eliminatory_failure_caps_result": "NOT_COMPLETED",
+    "remediation_required_below_mastery": true,
+    "retention_required_for_confirmed_mastery": true
+  }
+}
