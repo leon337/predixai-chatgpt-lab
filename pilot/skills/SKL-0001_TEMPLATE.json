@@ -1,0 +1,32 @@
+{
+  "id": "SKL-0001",
+  "slug": "skill-candidata-do-piloto",
+  "version": "0.1.0",
+  "status": "EXPERIMENTAL",
+  "purpose": "Definir durante a MSN-0009 a partir do PRM-0001 validado.",
+  "activation": "Ativação ainda não aprovada; somente desenho e teste em sandbox.",
+  "inputs": {},
+  "outputs": {},
+  "supported_surfaces": ["CHAT"],
+  "required_tools": [],
+  "permissions": [],
+  "dependencies": ["PRM-0001"],
+  "tests": [
+    {"test_id": "TST-SKL-0001", "variation_id": "VAR-PENDING-1", "input_variant": "definir-na-msn-0009", "result": "BLOCKED"}
+  ],
+  "controlled_executions": [],
+  "examples": [{"case": "Exemplo a definir na MSN-0009"}],
+  "resources": [],
+  "limitations": ["Template não executado", "Superfícies e permissões ainda não validadas"],
+  "security": {"review_status": "NOT_REVIEWED", "reviewer": null, "reviewed_at": null},
+  "surface_validations": [
+    {"surface": "CHAT", "adapter_version": "0.1.0", "result": "NOT_TESTED", "validated_at": null}
+  ],
+  "validation_summary": {
+    "controlled_execution_count": 0,
+    "distinct_input_variations": 0,
+    "all_declared_surfaces_validated": false,
+    "limitations_documented": true
+  },
+  "changelog": ["0.1.0 — template experimental sem alegação de validação"]
+}
