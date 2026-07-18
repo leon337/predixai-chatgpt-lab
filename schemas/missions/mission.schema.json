@@ -4,33 +4,11 @@
   "title": "Mission contract",
   "type": "object",
   "required": [
-    "id",
-    "slug",
-    "version",
-    "status",
-    "title",
-    "type",
-    "difficulty",
-    "estimated_minutes",
-    "xp",
-    "context",
-    "objectives",
-    "prerequisites",
-    "core_concept",
-    "analogy",
-    "execution_environment",
-    "execution_surfaces",
-    "allowed_tools",
-    "forbidden_actions",
-    "practical_mission",
-    "steps",
-    "evidence_requirements",
-    "success_criteria",
-    "assessment",
-    "own_words_explanation",
-    "feedback",
-    "next_unlock",
-    "security"
+    "id", "slug", "version", "status", "title", "type", "difficulty", "estimated_minutes", "xp",
+    "context", "objectives", "prerequisites", "core_concept", "analogy", "execution_environment",
+    "execution_surfaces", "allowed_tools", "forbidden_actions", "practical_mission", "steps",
+    "evidence_requirements", "success_criteria", "assessment", "own_words_explanation", "feedback",
+    "next_unlock", "security"
   ],
   "properties": {
     "id": {"type": "string", "pattern": "^MSN-[0-9]{4}$"},
@@ -112,7 +90,18 @@
       },
       "additionalProperties": false
     },
-    "security": {"type": "object", "minProperties": 1}
+    "security": {
+      "type": "object",
+      "required": ["evidence_classification", "restrictions", "human_approval_required", "secrets_allowed", "personal_data_allowed"],
+      "properties": {
+        "evidence_classification": {"enum": ["PUBLIC", "INTERNAL", "PRIVATE", "SENSITIVE"]},
+        "restrictions": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
+        "human_approval_required": {"type": "boolean"},
+        "secrets_allowed": {"const": false},
+        "personal_data_allowed": {"type": "boolean"}
+      },
+      "additionalProperties": false
+    }
   },
   "additionalProperties": false
 }
