@@ -1,0 +1,44 @@
+{
+  "id": "MSN-0005",
+  "slug": "escolher-entre-busca-web-e-deep-research",
+  "version": "1.0.0",
+  "status": "IN_REVIEW",
+  "title": "Escolher entre busca web e Deep Research",
+  "type": "LAB",
+  "difficulty": "BEGINNER",
+  "estimated_minutes": 45,
+  "xp": 150,
+  "context": "A profundidade, o tempo disponível, a necessidade de fontes e a instabilidade do assunto determinam a estratégia de pesquisa.",
+  "objectives": ["Escolher o modo de pesquisa adequado", "Avaliar qualidade e atualidade das fontes", "Distinguir busca rápida de investigação estruturada"],
+  "prerequisites": ["MSN-0004 dominada"],
+  "core_concept": "Busca web responde perguntas focadas e recentes; Deep Research organiza investigações amplas, multietapas e com síntese de múltiplas fontes.",
+  "analogy": "Buscar na web é consultar rapidamente um catálogo; Deep Research é conduzir uma inspeção completa com plano, evidências e relatório.",
+  "execution_environment": {
+    "primary_surface": "DEEP_RESEARCH",
+    "availability_status": "PRACTICAL_AVAILABLE",
+    "setup": ["Selecionar um tema público e não sensível", "Definir prazo, perguntas e critérios de fonte"]
+  },
+  "execution_surfaces": ["CHAT", "DEEP_RESEARCH"],
+  "allowed_tools": ["Busca web", "Deep Research", "Documentação e fontes primárias"],
+  "forbidden_actions": ["Usar fonte sem verificar relevância", "Tratar conteúdo antigo como estado atual", "Citar fonte que não sustenta a afirmação"],
+  "practical_mission": "Resolver quatro cenários de pesquisa, executar um deles por busca web e outro por Deep Research e comparar custo, profundidade, fontes e resultado.",
+  "steps": [
+    {"id": "STP-0501", "title": "Classificar a pesquisa", "instructions": "Avalie urgência, amplitude, risco de desatualização e necessidade de síntese.", "saveable": true},
+    {"id": "STP-0502", "title": "Executar busca focada", "instructions": "Responda um cenário com fontes diretas e registre o caminho de verificação.", "saveable": true},
+    {"id": "STP-0503", "title": "Executar pesquisa profunda", "instructions": "Elabore plano, reúna fontes diversas e produza síntese estruturada.", "saveable": true},
+    {"id": "STP-0504", "title": "Comparar", "instructions": "Registre diferenças de tempo, profundidade, cobertura, risco e confiança.", "saveable": true}
+  ],
+  "evidence_requirements": ["Matriz de decisão dos quatro cenários", "Resposta com busca focada e fontes", "Relatório de pesquisa profunda sanitizado", "Comparação final"],
+  "success_criteria": ["Escolhas justificadas", "Fontes atuais e relevantes", "Citações sustentam afirmações", "Limitações e incertezas declaradas"],
+  "assessment": {"rubric_id": "RUB-0001", "competencies": ["CMP-RSR-001", "CMP-SRC-001"]},
+  "own_words_explanation": {"required": true, "prompt": "Explique quando uma busca rápida seria insuficiente e quando Deep Research seria desperdício de tempo.", "minimum_words": 100},
+  "feedback": {"success_message": "Estratégia de pesquisa escolhida e executada conforme o risco e a profundidade necessários.", "remediation_message": "Revise atualidade, autoridade, diversidade e correspondência entre fonte e afirmação."},
+  "next_unlock": {"on_success": "MSN-0006", "on_remediation": "MSN-0005"},
+  "security": {
+    "evidence_classification": "PRIVATE",
+    "restrictions": ["Pesquisar apenas tema público", "Não inserir dados pessoais em consultas"],
+    "human_approval_required": false,
+    "secrets_allowed": false,
+    "personal_data_allowed": false
+  }
+}
