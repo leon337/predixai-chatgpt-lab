@@ -1,0 +1,18 @@
+{
+  "id": "PRM-0001",
+  "slug": "prompt-do-piloto",
+  "version": "0.1.0",
+  "status": "DRAFT",
+  "category": "MISSION",
+  "purpose": "Definir durante a MSN-0008.",
+  "inputs": {},
+  "expected_output": "Definir durante a MSN-0008.",
+  "output_schema": {"type": "object"},
+  "supported_surfaces": ["CHAT"],
+  "allowed_tools": [],
+  "forbidden_actions": ["Inventar evidência", "Expor segredos"],
+  "success_criteria": ["Definir critérios verificáveis antes da execução"],
+  "test_cases": [],
+  "limitations": ["Template ainda não executado nem validado"],
+  "changelog": ["0.1.0 — template inicial sem alegação de validação"]
+}
