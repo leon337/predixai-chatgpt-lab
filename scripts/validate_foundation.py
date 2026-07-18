@@ -9,9 +9,11 @@ from pathlib import Path
 import yaml
 from jsonschema import Draft202012Validator
 
-from scripts.contract_semantics import ContractSemanticError, validate_runtime_state_semantics
-
 ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
+from scripts.contract_semantics import ContractSemanticError, validate_runtime_state_semantics
 
 REQUIRED_ARCHITECTURE = [
     "DOMAIN_MAP.md",
