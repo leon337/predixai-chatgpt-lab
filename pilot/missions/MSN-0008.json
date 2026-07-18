@@ -1,0 +1,45 @@
+{
+  "id": "MSN-0008",
+  "slug": "versionar-e-testar-um-prompt",
+  "version": "1.0.0",
+  "status": "IN_REVIEW",
+  "title": "Versionar e testar um prompt",
+  "type": "LAB",
+  "difficulty": "INTERMEDIATE",
+  "estimated_minutes": 60,
+  "xp": 200,
+  "context": "Um prompt só se torna reutilizável quando sua versão, entradas, resultados, limitações e mudanças podem ser auditados.",
+  "objectives": ["Versionar um prompt", "Criar casos de teste variados", "Comparar resultados e decidir promoção"],
+  "prerequisites": ["MSN-0007 dominada"],
+  "core_concept": "Validação de prompt exige três execuções controladas com entradas realmente distintas, critérios objetivos e revisão de segurança.",
+  "analogy": "Um gabarito de fabricação só vira padrão depois de ser testado em peças diferentes, medido e documentado.",
+  "execution_environment": {
+    "primary_surface": "GITHUB",
+    "availability_status": "PRACTICAL_AVAILABLE",
+    "setup": ["Usar repositório sandbox ou branch autorizada", "Selecionar o prompt criado na MSN-0003"]
+  },
+  "execution_surfaces": ["CHAT", "GITHUB"],
+  "allowed_tools": ["ChatGPT", "GitHub", "Schema de prompt", "Validador semântico"],
+  "forbidden_actions": ["Alterar main diretamente", "Reutilizar a mesma entrada como variações diferentes", "Marcar VALIDATED sem revisão de segurança"],
+  "practical_mission": "Registrar o prompt como PRM-0001, criar três casos de teste distintos, executar os três, comparar resultados e decidir entre IN_TESTING ou VALIDATED.",
+  "steps": [
+    {"id": "STP-0801", "title": "Registrar versão", "instructions": "Defina ID, slug, versão, propósito, entradas, saída esperada, superfícies e limitações.", "saveable": true},
+    {"id": "STP-0802", "title": "Criar testes", "instructions": "Crie três casos com conteúdos de entrada realmente diferentes e afirmações verificáveis.", "saveable": true},
+    {"id": "STP-0803", "title": "Executar", "instructions": "Execute cada caso uma vez, registre hash, resultado e data.", "saveable": true},
+    {"id": "STP-0804", "title": "Revisar segurança", "instructions": "Confirme origem, restrições, dados permitidos e ausência de instruções não confiáveis.", "saveable": true},
+    {"id": "STP-0805", "title": "Promover ou reter", "instructions": "Compare os resultados e justifique o status final do prompt.", "saveable": true}
+  ],
+  "evidence_requirements": ["Manifesto privado do PRM-0001", "Três casos e execuções controladas", "Relatório de comparação", "Revisão de segurança"],
+  "success_criteria": ["Versão semântica registrada", "Três entradas distintas", "Todas as execuções rastreáveis", "Status compatível com os resultados"],
+  "assessment": {"rubric_id": "RUB-0001", "competencies": ["CMP-PRM-002", "CMP-TST-001", "CMP-VER-001"]},
+  "own_words_explanation": {"required": true, "prompt": "Explique por que executar o mesmo prompt três vezes com a mesma entrada não comprova robustez.", "minimum_words": 120},
+  "feedback": {"success_message": "Prompt versionado e avaliado por testes controlados.", "remediation_message": "Revise a diversidade das entradas, os critérios de teste e a correspondência entre evidência e status."},
+  "next_unlock": {"on_success": "MSN-0009", "on_remediation": "MSN-0008"},
+  "security": {
+    "evidence_classification": "PRIVATE",
+    "restrictions": ["Dados fictícios nos testes", "Branch e PR obrigatórios para publicação"],
+    "human_approval_required": true,
+    "secrets_allowed": false,
+    "personal_data_allowed": false
+  }
+}
